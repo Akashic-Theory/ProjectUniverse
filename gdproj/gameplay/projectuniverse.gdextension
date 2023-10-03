@@ -1,0 +1,11 @@
+[configuration]
+
+entry_symbol = "universe_engine_init"
+compatibility_minimum = "4.1"
+
+[libraries]
+
+windows.debug.x86_64="res://gameplay/bin/windows/projectuniverse_d.dll"
+windows.release.x86_64="res://gameplay/bin/windows/projectuniverse.dll"
+linux.debug.x86_64="res://gameplay/bin/linux/projectuniverse_d.so"
+linux.release.x86_64="res://gameplay/bin/linux/projectuniverse.so"
