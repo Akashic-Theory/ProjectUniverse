@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bipkpdjw48db3"]
+[gd_scene load_steps=10 format=3 uid="uid://bocgnnmbb1wng"]
 
-[ext_resource type="Script" path="res://PlayerMovement.gd" id="1_jyo0o"]
+[ext_resource type="Script" path="res://TurnManager.gd" id="1_bs4ek"]
+[ext_resource type="Material" uid="uid://dcaa3o6i18uw0" path="res://highlight.tres" id="2_ouep7"]
+[ext_resource type="Script" path="res://PlayerManager.gd" id="2_uo24x"]
+[ext_resource type="Script" path="res://PlayerInput.gd" id="2_xx0f5"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_eit1d"]
 vertices = PackedVector3Array(0, 0.5, -9, -9, 0.5, 0, -9, 0.5, 9, 0, 0.5, 9, 9, 0.5, 0, 9, 0.5, -9, 0, 0.5, 9, 9, 0.5, 9, 9, 0.5, 0, 0, 0.5, -9, -9, 0.5, -9, -9, 0.5, 0)
@@ -40,18 +43,28 @@ skeleton = NodePath("../../..")
 shape = SubResource("WorldBoundaryShape3D_7xo0o")
 
 [node name="Actors" type="Node" parent="."]
+script = ExtResource("1_bs4ek")
 
-[node name="Blaire" type="MeshInstance3D" parent="Actors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99634, 1.39893, 0)
+[node name="PlayerActors" type="Node" parent="Actors"]
+script = ExtResource("2_uo24x")
+
+[node name="Blaire" type="MeshInstance3D" parent="Actors/PlayerActors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99634, 1.08476, 0)
 mesh = SubResource("CapsuleMesh_y8g4w")
-script = ExtResource("1_jyo0o")
+skeleton = NodePath("../..")
+script = ExtResource("2_xx0f5")
+hover_material = ExtResource("2_ouep7")
 
-[node name="Area3D" type="Area3D" parent="Actors/Blaire"]
+[node name="Area3D" type="Area3D" parent="Actors/PlayerActors/Blaire"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/Blaire/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/PlayerActors/Blaire/Area3D"]
 shape = SubResource("CapsuleShape3D_6q2ck")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Actors/Blaire"]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Actors/PlayerActors/Blaire"]
+path_desired_distance = 0.5
 target_desired_distance = 0.5
 
-[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Actors/Blaire" method="_on_area_3d_input_event"]
+[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Actors/PlayerActors/Blaire" method="_on_terrain_hover"]
+[connection signal="input_event" from="Actors/PlayerActors/Blaire/Area3D" to="Actors/PlayerActors/Blaire" method="_on_input_event"]
+[connection signal="mouse_entered" from="Actors/PlayerActors/Blaire/Area3D" to="Actors/PlayerActors/Blaire" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Actors/PlayerActors/Blaire/Area3D" to="Actors/PlayerActors/Blaire" method="_on_mouse_exited"]
