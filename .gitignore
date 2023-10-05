@@ -1,2 +1,5 @@
 # Ignore build artifacts
 cmake-build*
+
+# Ignore Jetbrains project config
+.idea
