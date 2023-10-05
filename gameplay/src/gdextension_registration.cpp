@@ -1,12 +1,17 @@
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
+#include "Character.h"
+#include "Ability.h"
+
 void register_gameplay_types(godot::ModuleInitializationLevel level) {
     if (level != godot::ModuleInitializationLevel::MODULE_INITIALIZATION_LEVEL_SCENE) {
         return;
     }
 
     // Register Classes
+    godot::ClassDB::register_class<Character>();
+    godot::ClassDB::register_class<Ability>();
 }
 
 void unregister_gameplay_types(godot::ModuleInitializationLevel level) {
