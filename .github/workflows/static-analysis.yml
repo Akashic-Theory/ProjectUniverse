@@ -1,0 +1,25 @@
+name: static-analysis
+
+on: [pull_request]
+
+jobs:
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run clang-tidy
+        uses: ZedThree/clang-tidy-review@v0.13.4
+        id: review
+        with:
+          build_dir: build
+          config_file: "gameplay/.clang-tidy"
+          cmake_command: |
+            cmake . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=On
+      - name: Upload review artifacts
+        uses: ZedThree/clang-tidy-review/upload@v0.13.4
+        id: upload-review
+
+      - if: steps.review.outputs.total_comments > 0
+        run: exit 1
