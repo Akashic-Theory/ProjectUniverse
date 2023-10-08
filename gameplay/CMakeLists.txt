@@ -2,7 +2,14 @@ project(projectuniverse)
 
 set(SRC src/gdextension_registration.cpp
         src/Character.cpp
-        src/Ability.cpp)
+        src/Ability.cpp
+        src/Pathfinding.cpp
+        src/GraphicalUtility.cpp)
+
+set(HEAD include/Character.h
+        include/Ability.h
+        include/Pathfinding.h
+        include/GraphicalUtility.h)
 
 add_library(${PROJECT_NAME} SHARED ${SRC} ${HEAD})
 
