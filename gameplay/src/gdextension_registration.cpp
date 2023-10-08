@@ -3,6 +3,8 @@
 
 #include "Character.h"
 #include "Ability.h"
+#include "Pathfinding.h"
+#include "GraphicalUtility.h"
 
 void register_gameplay_types(godot::ModuleInitializationLevel level) {
     if (level != godot::ModuleInitializationLevel::MODULE_INITIALIZATION_LEVEL_SCENE) {
@@ -12,6 +14,8 @@ void register_gameplay_types(godot::ModuleInitializationLevel level) {
     // Register Classes
     godot::ClassDB::register_class<Character>();
     godot::ClassDB::register_class<Ability>();
+    godot::ClassDB::register_class<Pathfinding>();
+    godot::ClassDB::register_class<GraphicalUtility>();
 }
 
 void unregister_gameplay_types(godot::ModuleInitializationLevel level) {
