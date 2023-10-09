@@ -20,4 +20,5 @@ add_custom_target(create_link ALL
 )
 
 install(TARGETS "projectuniverse"
-        RUNTIME DESTINATION "bin/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>")
+        RUNTIME DESTINATION "bin/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>"
+        LIBRARY DESTINATION "bin/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>")
