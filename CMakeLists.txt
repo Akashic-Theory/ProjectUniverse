@@ -18,3 +18,6 @@ add_custom_target(create_link ALL
         COMMENT "Copying output"
         DEPENDS projectuniverse
 )
+
+install(TARGETS "projectuniverse"
+        RUNTIME DESTINATION "bin/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>")

@@ -59,6 +59,7 @@ jobs:
           -B GDExtension-build
           -G "Ninja"
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           --install-prefix ${{ github.workspace }}/install-${{ matrix.build_type }}
           .
 
