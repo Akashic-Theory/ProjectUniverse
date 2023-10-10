@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bocgnnmbb1wng"]
+[gd_scene load_steps=15 format=3 uid="uid://bocgnnmbb1wng"]
 
 [ext_resource type="Script" path="res://TurnManager.gd" id="1_bs4ek"]
 [ext_resource type="Material" uid="uid://dcaa3o6i18uw0" path="res://highlight.tres" id="2_ouep7"]
 [ext_resource type="Script" path="res://PlayerManager.gd" id="2_uo24x"]
 [ext_resource type="Script" path="res://PlayerInput.gd" id="2_xx0f5"]
+[ext_resource type="Script" path="res://addons/region/region_node_3d.gd" id="5_cke8y"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_eit1d"]
 vertices = PackedVector3Array(-9, 0.483834, 2, -6.5, 0.483834, 2, -6.5, 0.483834, 0.25, -9, 0.483834, 2, -6.5, 0.483834, 0.25, -5.75, 0.483834, -0.5, -4, 0.483834, -9, -9, 0.483834, -9, -5.75, 0.483834, -0.5, -4, 0.483834, -0.5, -4, 0.483834, -9, -4, 0.483834, -9, -4, 0.483834, -0.5, -2, 0.483834, -0.5, 2.5, 0.483834, -9, -4, 0.483834, -9, -2, 0.483834, -0.5, -1.25, 0.483834, 0.25, -1.25, 0.483834, 0.25, -1.25, 0.483834, 1.75, 9, 0.483834, 1.5, 9, 0.483834, -9, 2.5, 0.483834, -9, -4.5, 3.23383, 1.5, -4.5, 3.23383, 2.75, -3.25, 3.23383, 2.75, -3.25, 3.23383, 1.5, -1.25, 0.483834, 1.75, -1.5, 0.483834, 4.25, -1.5, 0.483834, 9, 9, 0.483834, 9, 9, 0.483834, 1.5, -4.25, 0.483834, 1.75, -4.25, 0.483834, 2.5, -3.5, 0.483834, 2.5, -3.5, 0.483834, 1.75, -6.5, 0.483834, 4, -6.5, 0.483834, 2, -9, 0.483834, 2, -5.75, 0.483834, 4.75, -6.5, 0.483834, 4, -9, 0.483834, 2, -9, 0.483834, 9, -1.5, 0.483834, 9, -1.5, 0.483834, 4.25, -2, 0.483834, 4.75, -1.5, 0.483834, 9, -2, 0.483834, 4.75, -5.75, 0.483834, 4.75, -9, 0.483834, 9)
@@ -20,9 +21,13 @@ size = Vector3(3, 3, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y2oey"]
 
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_koxk5"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_y8g4w"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6q2ck"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_otvyc"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -56,6 +61,10 @@ mesh = SubResource("BoxMesh_f1ly2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/NavigationRegion3D/MeshInstance3D/Area3D"]
 shape = SubResource("BoxShape3D_y2oey")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7956, 0)
+mesh = SubResource("ImmediateMesh_koxk5")
+
 [node name="Actors" type="Node" parent="."]
 script = ExtResource("1_bs4ek")
 
@@ -73,6 +82,7 @@ max_movement = 6.0
 hover_material = ExtResource("2_ouep7")
 
 [node name="Area3D" type="Area3D" parent="Actors/PlayerActors/Character/Blaire"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/PlayerActors/Character/Blaire/Area3D"]
 shape = SubResource("CapsuleShape3D_6q2ck")
@@ -83,6 +93,16 @@ target_desired_distance = 0.5
 debug_path_custom_point_size = 10.0
 
 [node name="Ability" type="Ability" parent="Actors/PlayerActors/Character"]
+
+[node name="Region" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.9543, 9.53674e-07, 16.3272)
+script = ExtResource("5_cke8y")
+num_vertices = 4
+
+[node name="Area3D" type="Area3D" parent="Region"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Region/Area3D"]
+shape = SubResource("WorldBoundaryShape3D_otvyc")
 
 [connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_terrain_hover"]
 [connection signal="input_event" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_input_event"]
