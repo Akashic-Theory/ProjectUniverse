@@ -5,10 +5,8 @@ extends Node3D
 @export_enum("Positive", "Negative") var type: int = 0:
 	set(val):
 		type = val
-		is_positive = (type == 0)
 		update_gizmos()
 
-#@export_range(3, 10) var num_vertices: int = 3
 @export var vertices = PackedVector3Array():
 	get:
 		if vertices.size() < 3:
@@ -20,29 +18,72 @@ extends Node3D
 			return
 		
 		vertices = val
+		update_collision_shape()
 		update_gizmos()
 
+@onready var collider := $Area3D:
+	get:
+		if collider == null:
+			collider = $Area3D
+		return collider
+
+@onready var collision_polygon := $Area3D/CollisionPolygon3D:
+	get:
+		#if collision_polygon == null:
+			#collision_polygon = $Area3D/CollisionPolygon3D
+		return collision_polygon
+
 # Boolean representing type
-var is_positive: bool
+var is_positive: bool:
+	get:
+		return (type == 0)
 
 
-func _ready():
-	# Do not run _process in-game
-	if !Engine.is_editor_hint():
-		set_process(false)
+func _get_configuration_warnings():
+	var error: PackedStringArray
 	
-	#update_vertices()
+	var areas = find_children("", "Area3D")
+	var colliders = find_children("", "CollisionPolygon3D")
+	
+	if areas.size() == 0:
+		error.append("SubRegion has no Area3D to perform point checks against")
+	
+	if areas.size() != colliders.size():
+		error.append("All Area3Ds must be defined by a single CollisionPolygon3D")
+	
+	return error
 
 
-func _process(delta):
-	pass
-	#update_vertices()
+func update_collision_shape():
+	if collision_polygon == null:
+		return
+	
+	var new_polygon = collision_polygon.polygon
+	
+	if new_polygon.size() != vertices.size():
+		new_polygon.resize(vertices.size())
+	
+	for i in range(0, vertices.size()):
+		new_polygon[i] = Vector2(vertices[i].x, vertices[i].z)
+	
+	collision_polygon.polygon = new_polygon
 
 
-#func update_vertices():
-#	if vertices.size() != num_vertices:
-#		vertices.resize(num_vertices)
-#		update_gizmos()
+func contains_point(point: Vector3) -> bool:
+	var space_state = get_world_3d().direct_space_state
+	point.y = global_position.y
+	
+	var query = PhysicsPointQueryParameters3D.new()
+	query.position = point
+	query.collide_with_areas = true
+	query.collision_mask = 8
+	
+	var result = space_state.intersect_point(query)
+	
+	# Filter to find this object's collider
+	var filtered = result.filter(func(val): return val["collider"] == collider)
+	
+	return !filtered.is_empty()
 
 
 func gizmo_raycast(camera: Camera3D, point: Vector2) -> Vector3:
@@ -52,7 +93,7 @@ func gizmo_raycast(camera: Camera3D, point: Vector2) -> Vector3:
 	var to = from + camera.project_ray_normal(point) * 1000
 	var query = PhysicsRayQueryParameters3D.create(from, to)
 	query.collide_with_areas = true
-	query.collision_mask = 3
+	query.collision_mask = 4
 	
 	var result = space_state.intersect_ray(query)
 	

@@ -49,6 +49,7 @@ mesh = SubResource("PlaneMesh_n057i")
 skeleton = NodePath("../../..")
 
 [node name="Area3D" type="Area3D" parent="Environment/NavigationRegion3D/FloorPlane"]
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
 shape = SubResource("WorldBoundaryShape3D_7xo0o")
@@ -99,23 +100,72 @@ debug_path_custom_point_size = 10.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("5_cke8y")
 
-[node name="Area3D" type="Area3D" parent="Region"]
+[node name="ProjectionPlane" type="Area3D" parent="Region"]
+visible = false
 collision_layer = 4
-collision_mask = 4
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Region/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Region/ProjectionPlane"]
 shape = SubResource("WorldBoundaryShape3D_otvyc")
 
 [node name="SubRegion" type="Node3D" parent="Region"]
 script = ExtResource("6_2ku07")
-vertices = PackedVector3Array(-8.84458, 9.53674e-07, 9.25199, 7.89295, 0, 8.87424, 7.68128, 0, -8.0898, -8.68667, 9.53674e-07, -8.64852)
+vertices = PackedVector3Array(-9.9649, 0, 9.9524, 10, 0, 10, 10, 0, -10, -10, 0, -10)
+
+[node name="Area3D" type="Area3D" parent="Region/SubRegion"]
+visible = false
+collision_layer = 8
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion/Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+depth = 0.1
+polygon = PackedVector2Array(-9.9649, 9.9524, 10, 10, 10, -10, -10, -10)
 
 [node name="SubRegion2" type="Node3D" parent="Region"]
 script = ExtResource("6_2ku07")
 type = 1
-vertices = PackedVector3Array(6.28809, 0, 8.21135, 5.57601, 9.53674e-07, 3.75726, 1.8214, 0, 5.22825, 1.7941, 0, 7.25905)
+vertices = PackedVector3Array(-1.82549, 0.100001, 4.22317, -1.81863, 0.1, -0.954388, -6.45791, 0.253732, -0.493575, -6.27629, 0.099999, 4.26141)
+
+[node name="Area3D" type="Area3D" parent="Region/SubRegion2"]
+visible = false
+collision_layer = 8
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+depth = 0.1
+polygon = PackedVector2Array(-1.82549, 4.22317, -1.81863, -0.954388, -6.45791, -0.493575, -6.27629, 4.26141)
+
+[node name="SubRegion3" type="Node3D" parent="Region"]
+script = ExtResource("6_2ku07")
+type = 1
+vertices = PackedVector3Array(1.44301, 9.53674e-07, -0.243773, 3.224, 0, 3.38491, 6.94597, 0, 2.86735, 7.77484, 0, -0.683062, 4.62101, 0.1, -3.10397)
+
+[node name="Area3D" type="Area3D" parent="Region/SubRegion3"]
+visible = false
+collision_layer = 8
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion3/Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+depth = 0.1
+polygon = PackedVector2Array(1.44301, -0.243773, 3.224, 3.38491, 6.94597, 2.86735, 7.77484, -0.683062, 4.62101, -3.10397)
 
 [connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_terrain_hover"]
+[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Region" method="_on_projection_plane_input_event"]
 [connection signal="input_event" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_input_event"]
 [connection signal="mouse_entered" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_mouse_exited"]

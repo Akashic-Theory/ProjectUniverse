@@ -18,7 +18,7 @@ func _redraw():
 		lines.push_back(sub_region.vertices[v])
 	lines.push_back(sub_region.vertices[0])
 	
-	
+	#print(sub_region.is_positive)
 	var material = get_plugin().get_material("positive" if sub_region.is_positive else "negative", self)
 	add_lines(lines, material, false)
 	
