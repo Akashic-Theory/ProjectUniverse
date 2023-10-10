@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bocgnnmbb1wng"]
+[gd_scene load_steps=16 format=3 uid="uid://bocgnnmbb1wng"]
 
 [ext_resource type="Script" path="res://TurnManager.gd" id="1_bs4ek"]
 [ext_resource type="Material" uid="uid://dcaa3o6i18uw0" path="res://highlight.tres" id="2_ouep7"]
 [ext_resource type="Script" path="res://PlayerManager.gd" id="2_uo24x"]
 [ext_resource type="Script" path="res://PlayerInput.gd" id="2_xx0f5"]
 [ext_resource type="Script" path="res://addons/region/region_node_3d.gd" id="5_cke8y"]
+[ext_resource type="Script" path="res://addons/region/sub_region_node_3d.gd" id="6_2ku07"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_eit1d"]
 vertices = PackedVector3Array(-9, 0.483834, 2, -6.5, 0.483834, 2, -6.5, 0.483834, 0.25, -9, 0.483834, 2, -6.5, 0.483834, 0.25, -5.75, 0.483834, -0.5, -4, 0.483834, -9, -9, 0.483834, -9, -5.75, 0.483834, -0.5, -4, 0.483834, -0.5, -4, 0.483834, -9, -4, 0.483834, -9, -4, 0.483834, -0.5, -2, 0.483834, -0.5, 2.5, 0.483834, -9, -4, 0.483834, -9, -2, 0.483834, -0.5, -1.25, 0.483834, 0.25, -1.25, 0.483834, 0.25, -1.25, 0.483834, 1.75, 9, 0.483834, 1.5, 9, 0.483834, -9, 2.5, 0.483834, -9, -4.5, 3.23383, 1.5, -4.5, 3.23383, 2.75, -3.25, 3.23383, 2.75, -3.25, 3.23383, 1.5, -1.25, 0.483834, 1.75, -1.5, 0.483834, 4.25, -1.5, 0.483834, 9, 9, 0.483834, 9, 9, 0.483834, 1.5, -4.25, 0.483834, 1.75, -4.25, 0.483834, 2.5, -3.5, 0.483834, 2.5, -3.5, 0.483834, 1.75, -6.5, 0.483834, 4, -6.5, 0.483834, 2, -9, 0.483834, 2, -5.75, 0.483834, 4.75, -6.5, 0.483834, 4, -9, 0.483834, 2, -9, 0.483834, 9, -1.5, 0.483834, 9, -1.5, 0.483834, 4.25, -2, 0.483834, 4.75, -1.5, 0.483834, 9, -2, 0.483834, 4.75, -5.75, 0.483834, 4.75, -9, 0.483834, 9)
@@ -95,14 +96,24 @@ debug_path_custom_point_size = 10.0
 [node name="Ability" type="Ability" parent="Actors/PlayerActors/Character"]
 
 [node name="Region" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.9543, 9.53674e-07, 16.3272)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("5_cke8y")
-num_vertices = 4
 
 [node name="Area3D" type="Area3D" parent="Region"]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Region/Area3D"]
 shape = SubResource("WorldBoundaryShape3D_otvyc")
+
+[node name="SubRegion" type="Node3D" parent="Region"]
+script = ExtResource("6_2ku07")
+vertices = PackedVector3Array(-8.84458, 9.53674e-07, 9.25199, 7.89295, 0, 8.87424, 7.68128, 0, -8.0898, -8.68667, 9.53674e-07, -8.64852)
+
+[node name="SubRegion2" type="Node3D" parent="Region"]
+script = ExtResource("6_2ku07")
+type = 1
+vertices = PackedVector3Array(6.28809, 0, 8.21135, 5.57601, 9.53674e-07, 3.75726, 1.8214, 0, 5.22825, 1.7941, 0, 7.25905)
 
 [connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_terrain_hover"]
 [connection signal="input_event" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_input_event"]
