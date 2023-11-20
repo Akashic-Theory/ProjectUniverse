@@ -13,8 +13,8 @@ add_subdirectory(deps)
 add_subdirectory(gameplay)
 
 add_custom_target(create_link ALL
-        COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_SOURCE_DIR}/gdproj/gameplay/bin"
-        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:projectuniverse>" "${CMAKE_SOURCE_DIR}/gdproj/gameplay/bin/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>/$<TARGET_NAME:projectuniverse>$<$<CONFIG:Debug>:_d>${CMAKE_SHARED_LIBRARY_SUFFIX}"
+        COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_SOURCE_DIR}/gdproj/extension/bin"
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:projectuniverse>" "${CMAKE_SOURCE_DIR}/gdproj/extension/bin/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>/$<TARGET_NAME:projectuniverse>$<$<CONFIG:Debug>:_d>${CMAKE_SHARED_LIBRARY_SUFFIX}"
         COMMENT "Copying output"
         DEPENDS projectuniverse
 )

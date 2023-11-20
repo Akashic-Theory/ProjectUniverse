@@ -2,4 +2,4 @@
 .godot/
 
 # Ignore build artifacts
-gameplay/bin
+extension/bin
