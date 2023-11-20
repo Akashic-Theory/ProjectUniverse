@@ -6,7 +6,6 @@ extends Node3D
 	set(val):
 		type = val
 		update_gizmos()
-
 @export var vertices = PackedVector3Array():
 	get:
 		if vertices.size() < 3:
@@ -20,24 +19,30 @@ extends Node3D
 		vertices = val
 		update_collision_shape()
 		update_gizmos()
-
 @onready var collider := $Area3D:
 	get:
 		if collider == null:
 			collider = $Area3D
 		return collider
-
 @onready var collision_polygon := $Area3D/CollisionPolygon3D:
 	get:
 		#if collision_polygon == null:
 			#collision_polygon = $Area3D/CollisionPolygon3D
 		return collision_polygon
+@onready var bounds : Bounds2D = find_bounds()
 
 # Boolean representing type
 var is_positive: bool:
 	get:
 		return (type == 0)
 
+class Bounds2D:
+	var min : Vector2
+	var max : Vector2
+	
+	func _init(_min: Vector2, _max: Vector2):
+		min = _min
+		max = _max
 
 func _get_configuration_warnings():
 	var error: PackedStringArray
@@ -84,6 +89,27 @@ func contains_point(point: Vector3) -> bool:
 	var filtered = result.filter(func(val): return val["collider"] == collider)
 	
 	return !filtered.is_empty()
+
+
+# Returns the rectangular bounds of the region
+func find_bounds() -> Bounds2D:
+	var polygon = collision_polygon.polygon
+	var min : Vector2 = polygon[0]
+	var max : Vector2 = polygon[0]
+	
+	# Yes it's unreadable, who cares
+	for i in range(1, polygon.size()):
+		if min.x > polygon[i].x:
+			min.x = polygon[i].x
+		elif max.x < polygon[i].x:
+			max.x = polygon[i].x 
+		
+		if min.y > polygon[i].y:
+			min.y = polygon[i].y
+		elif max.y < polygon[i].y:
+			max.y = polygon[i].y
+	
+	return Bounds2D.new(min, max)
 
 
 func gizmo_raycast(camera: Camera3D, point: Vector2) -> Vector3:

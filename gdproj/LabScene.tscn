@@ -87,6 +87,36 @@ shape = SubResource("BoxShape3D_y2oey")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7956, 0)
 mesh = SubResource("ImmediateMesh_koxk5")
 
+[node name="Actors" type="Node" parent="."]
+script = ExtResource("1_bs4ek")
+
+[node name="PlayerActors" type="Node" parent="Actors"]
+script = ExtResource("2_uo24x")
+
+[node name="Character" type="Character" parent="Actors/PlayerActors"]
+
+[node name="Blaire" type="MeshInstance3D" parent="Actors/PlayerActors/Character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99634, 1.08476, 0)
+mesh = SubResource("CapsuleMesh_y8g4w")
+skeleton = NodePath("../../..")
+script = ExtResource("2_xx0f5")
+max_movement = 6.0
+hover_material = ExtResource("2_ouep7")
+
+[node name="Area3D" type="Area3D" parent="Actors/PlayerActors/Character/Blaire"]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/PlayerActors/Character/Blaire/Area3D"]
+shape = SubResource("CapsuleShape3D_6q2ck")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Actors/PlayerActors/Character/Blaire"]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+debug_path_custom_point_size = 10.0
+
+[node name="Ability" type="Ability" parent="Actors/PlayerActors/Character"]
+"Targeting Mode" = 34
+
 [node name="Region" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("5_cke8y")
@@ -104,7 +134,7 @@ shape = SubResource("WorldBoundaryShape3D_otvyc")
 
 [node name="SubRegion" type="Node3D" parent="Region"]
 script = ExtResource("6_2ku07")
-vertices = PackedVector3Array(-9.9649, 0, 9.9524, 10, 0, 10, 10, 0, -10, -10, 0, -10)
+vertices = PackedVector3Array(-10, 0.1, 10, 10, 0, 10, 10, 0.1, -10, -10, 0.1, -10)
 
 [node name="Area3D" type="Area3D" parent="Region/SubRegion"]
 visible = false
@@ -117,12 +147,12 @@ monitorable = false
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion/Area3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 depth = 0.1
-polygon = PackedVector2Array(-9.9649, 9.9524, 10, 10, 10, -10, -10, -10)
+polygon = PackedVector2Array(-10, 10, 10, 10, 10, -10, -10, -10)
 
 [node name="SubRegion2" type="Node3D" parent="Region"]
 script = ExtResource("6_2ku07")
 type = 1
-vertices = PackedVector3Array(-1.82549, 0.100001, 4.22317, -1.81863, 0.1, -0.954388, -6.45791, 0.253732, -0.493575, -6.27629, 0.099999, 4.26141)
+vertices = PackedVector3Array(-1.82549, 0.100001, 4.22317, -1.81863, 0.1, -0.954388, -6.45791, 0.253732, -0.493575, -6.60773, 0.1, 4.31564)
 
 [node name="Area3D" type="Area3D" parent="Region/SubRegion2"]
 visible = false
@@ -135,7 +165,7 @@ monitorable = false
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion2/Area3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 depth = 0.1
-polygon = PackedVector2Array(-1.82549, 4.22317, -1.81863, -0.954388, -6.45791, -0.493575, -6.27629, 4.26141)
+polygon = PackedVector2Array(-1.82549, 4.22317, -1.81863, -0.954388, -6.45791, -0.493575, -6.60773, 4.31564)
 
 [node name="SubRegion3" type="Node3D" parent="Region"]
 script = ExtResource("6_2ku07")
