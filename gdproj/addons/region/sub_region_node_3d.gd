@@ -24,11 +24,7 @@ extends Node3D
 		if collider == null:
 			collider = $Area3D
 		return collider
-@onready var collision_polygon := $Area3D/CollisionPolygon3D:
-	get:
-		#if collision_polygon == null:
-			#collision_polygon = $Area3D/CollisionPolygon3D
-		return collision_polygon
+@onready var collision_polygon := $Area3D/CollisionPolygon3D
 @onready var bounds : Bounds2D = find_bounds()
 
 # Boolean representing type
@@ -36,6 +32,7 @@ var is_positive: bool:
 	get:
 		return (type == 0)
 
+# Describes a rectangular bound
 class Bounds2D:
 	var min : Vector2
 	var max : Vector2
@@ -43,6 +40,12 @@ class Bounds2D:
 	func _init(_min: Vector2, _max: Vector2):
 		min = _min
 		max = _max
+
+	func contains_point(point : Vector2) -> bool:
+		return (min.x < point.x 
+			&& min.y < point.y 
+			&& max.x > point.x 
+			&& max.y > point.y)
 
 func _get_configuration_warnings():
 	var error: PackedStringArray

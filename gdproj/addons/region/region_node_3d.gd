@@ -21,15 +21,15 @@ func _get_configuration_warnings():
 	return error
 
 
-func contains_point(point: Vector3) -> bool:
-	var result = false
+func contains_point(point: Vector3) -> int:
+	var result = -1
 	
-	for r in sub_regions:
-		if r.contains_point(point):
-			if r.is_positive:
-				result = true
+	for i in range(sub_regions.size()):
+		if sub_regions[i].contains_point(point):
+			if sub_regions[i].is_positive:
+				result = i
 			else:
-				result = false
+				result = -1
 				break
 	
 	return result

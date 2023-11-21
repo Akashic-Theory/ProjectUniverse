@@ -36,8 +36,9 @@ func _physics_process(delta):
 		# Move along path
 		var movement_delta: float = movement_speed * delta
 		var next_path_pos: Vector3 = agent.get_next_path_position()
-		var new_velocity: Vector3 = (next_path_pos - global_position).normalized() * movement_delta
-		global_position = global_position.move_toward(global_position + new_velocity, movement_delta)
+		#var new_velocity: Vector3 = (next_path_pos - global_position).normalized() * movement_delta
+		#global_position = global_position.move_toward(global_position + new_velocity, movement_delta)
+		global_position = global_position.move_toward(next_path_pos, movement_delta)
 
 # Logic for path previews and movement input
 func _on_terrain_hover(camera, event, position, normal, shape_idx):

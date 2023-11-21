@@ -29,7 +29,7 @@ project/assembly_name="ProjectUniverse"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/region/plugin.cfg")
+enabled=PackedStringArray("res://addons/poisson_disc/plugin.cfg", "res://addons/region/plugin.cfg")
 
 [input]
 
