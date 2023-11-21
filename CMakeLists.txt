@@ -10,7 +10,7 @@ if(MSVC)
 endif()
 
 add_subdirectory(deps)
-add_subdirectory(gameplay)
+add_subdirectory(extension)
 
 add_custom_target(create_link ALL
         COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_SOURCE_DIR}/gdproj/extension/bin"

@@ -39,6 +39,7 @@ func _physics_process(delta):
 
 # Logic for path previews and movement input
 func _on_terrain_hover(camera, event, position, normal, shape_idx):
+	print("UwU")
 	if is_turn && is_selected && !is_moving:
 		if event.is_action_pressed("start_move"):
 			is_moving = true

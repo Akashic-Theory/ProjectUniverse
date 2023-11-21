@@ -23,5 +23,3 @@ public:
     [[nodiscard]] Targeting get_mode() const;
     void set_mode(const Targeting mode);
 };
-
-VARIANT_ENUM_CAST(Ability::Targeting);

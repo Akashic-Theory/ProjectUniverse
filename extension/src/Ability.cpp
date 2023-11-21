@@ -2,6 +2,16 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
+VARIANT_ENUM_CAST(Ability::Targeting);
+
+Ability::Targeting Ability::get_mode() const {
+    return mode;
+}
+
+void Ability::set_mode(const Ability::Targeting _mode) {
+    mode = _mode;
+}
+
 void Ability::_bind_methods() {
     using namespace godot;
 
@@ -16,12 +26,4 @@ void Ability::_bind_methods() {
     ADD_PROPERTY(PropertyInfo(Variant::INT, "Targeting Mode", PROPERTY_HINT_ENUM, "Auto,Unit,Smite,Line,Vector"),
                  "set_mode",
                  "get_mode");
-}
-
-Ability::Targeting Ability::get_mode() const {
-    return mode;
-}
-
-void Ability::set_mode(const Ability::Targeting _mode) {
-    mode = _mode;
 }
