@@ -5,9 +5,14 @@ compatibility_minimum = "4.1"
 
 [libraries]
 
-windows.debug.x86_64="res://gameplay/bin/windows/projectuniverse_d.dll"
-windows.release.x86_64="res://gameplay/bin/windows/projectuniverse.dll"
-linux.debug.x86_64="res://gameplay/bin/linux/libprojectuniverse_d.so"
-linux.release.x86_64="res://gameplay/bin/linux/libprojectuniverse.so"
-macos.debug="res://gameplay/bin/darwin/libprojectuniverse_d.dylib"
-macos.release="res://gameplay/bin/darwin/libprojectuniverse.dylib"
+windows.debug.x86_64="res://extension/bin/windows/projectuniverse_d.dll"
+windows.release.x86_64="res://extension/bin/windows/projectuniverse.dll"
+linux.debug.x86_64="res://extension/bin/linux/libprojectuniverse_d.so"
+linux.release.x86_64="res://extension/bin/linux/libprojectuniverse.so"
+macos.debug="res://extension/bin/darwin/libprojectuniverse_d.dylib"
+macos.release="res://extension/bin/darwin/libprojectuniverse.dylib"
+
+[icons]
+Scenario = "res://extension/icon/mountaintop.svg"
+Character = "res://extension/icon/character.svg"
+Ability = "res://extension/icon/concentration-orb.svg"
