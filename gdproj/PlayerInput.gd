@@ -28,7 +28,7 @@ func _physics_process(delta):
 		# Draw path
 		var trimmed_path = Pathfinding.trim_path(agent.get_current_navigation_path(), max_movement)
 		agent.target_position = trimmed_path[-1]
-		trimmed_path = Pathfinding.localize_path(trimmed_path)
+		#trimmed_path = Pathfinding.localize_path(trimmed_path)
 		path_mesh = GraphicalUtility.path_mesh(trimmed_path)
 #		get_tree().get_root().add_child(path_mesh)
 		add_child(path_mesh)

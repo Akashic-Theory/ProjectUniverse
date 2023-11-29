@@ -1,10 +1,9 @@
 extends Node3D
-class_name PoissonDisc
 
 # Disc radius
-var r: float
+@export var r: float = 2
 # The amount of placement attempts perfromed around each point
-const K: int = 5
+const K: int = 7
 
 # A grid point's domain is defined by multiples of r / sqrt(2), represented by side_length
 # grid[0][0] = box with origin point representing globalBound.min,
@@ -12,17 +11,17 @@ const K: int = 5
 var side_length: float
 var grid = null
 
-var region: Region
+# TEMPORARY. Manually assigning this as child of region for testing
+@onready var region: Region = get_parent()
 
 # all_points stores all the generated points organized by the sub region they belong to
 # all_points[0] represents the points within region.sub_regions[0]
 @onready var all_points = []
 @onready var active_points = []
 
-func _init(_region: Region, _radius: float):
-	region = _region
-	r = _radius
-	
+# Using custom function for initialization to ensure it runs after region's _ready()
+# Probably change this
+func init():
 	for i in range(region.sub_regions.size()):
 		all_points.append([])
 	
@@ -40,7 +39,7 @@ func _init(_region: Region, _radius: float):
 			grid[x].append(null)
 
 # The big boy function that generates and returns all_points
-func generate_distribution():
+func generate_distribution() -> Array:
 	# Generate one starting point in each positive region
 	for sub_region in region.sub_regions:
 		if !sub_region.is_positive:
@@ -61,6 +60,11 @@ func generate_distribution():
 				found_valid = true
 			
 			count += 1
+	
+	while(active_points.size() > 0):
+		generate_points(active_points[randi_range(0, active_points.size() - 1)])
+	
+	return all_points
 
 
 # Attempt to generate K points around the given point
@@ -77,6 +81,7 @@ func generate_points(base_point: Vector2):
 							 base_point.y + (radius * sin(theta)))
 		
 		var result = check_valid_point(point)
+		
 		if result > -1:
 			new_points.append(point)
 			add_new_point(point, result)
@@ -99,9 +104,9 @@ func check_valid_point(point: Vector2) -> int:
 	for i in range(i0, i1):
 		for j in range(j0, j1):
 			if grid[i][j] != null && grid[i][j].distance_to(point) < r:
-				return false
+				return -1
 	
-	return region.bounds.contains_point(point)
+	return region.contains_point(Vector3(point.x, 0, point.y))
 
 
 func add_new_point(point: Vector2, index: int):
@@ -113,7 +118,7 @@ func add_new_point(point: Vector2, index: int):
 
 # Converts from a floating point to an index on the grid
 func to_grid_index(point: Vector2) -> Vector2i:
-	var i = floori(point.x - region.bounds.min.x) / side_length
-	var j = floori(point.y - region.bounds.min.y) / side_length
+	var i = abs(int((point.x - region.bounds.min.x) / side_length))
+	var j = abs(int((point.y - region.bounds.min.y) / side_length))
 	
 	return Vector2i(i, j)

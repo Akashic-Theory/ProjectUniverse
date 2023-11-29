@@ -5,9 +5,26 @@ extends Node3D
 var sub_regions: Array
 var bounds : SubRegion.Bounds2D
 
+# Temporarily being loaded and called here, this should be done by the spawn manager
+var poisson_disc
+
 func _ready():
 	sub_regions = find_children("", "SubRegion", false)
 	bounds = find_bounds()
+	
+	# Initialize Poisson Disc
+	# Do not port
+	if !Engine.is_editor_hint():
+		poisson_disc = $PoissonDisc
+		poisson_disc.init()
+		
+		var points = poisson_disc.generate_distribution()
+		
+		for group in points:
+			for p in group:
+				print("a point")
+				var mesh = GraphicalUtility.point_mesh(Vector3(p.x, 0, p.y))
+				add_child(mesh)
 
 
 func _get_configuration_warnings():
