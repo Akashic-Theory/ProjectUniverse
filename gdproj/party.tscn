@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdmaruv3ph7ff"]
+
+[ext_resource type="Material" uid="uid://dcaa3o6i18uw0" path="res://highlight.tres" id="2_4mpur"]
+[ext_resource type="Script" path="res://PlayerInput.gd" id="3_0xd6j"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y8g4w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6q2ck"]
+
+[node name="Party" type="Node"]
+
+[node name="Blaire" type="Character" parent="."]
+script = ExtResource("3_0xd6j")
+movement_speed = 15.0
+max_movement = 6.0
+hover_material = ExtResource("2_4mpur")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Blaire"]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+debug_path_custom_point_size = 10.0
+
+[node name="Mesh" type="MeshInstance3D" parent="Blaire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.085, 0)
+mesh = SubResource("CapsuleMesh_y8g4w")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Blaire/Mesh"]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Blaire/Mesh/Area3D"]
+shape = SubResource("CapsuleShape3D_6q2ck")
+
+[node name="Abilities" type="Node" parent="Blaire"]
+
+[node name="Ability" type="Ability" parent="Blaire/Abilities"]
+
+[node name="Claire" type="Character" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15555, -2.38419e-07, -1.59777)
+script = ExtResource("3_0xd6j")
+movement_speed = 15.0
+max_movement = 6.0
+hover_material = ExtResource("2_4mpur")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Claire"]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+debug_path_custom_point_size = 10.0
+
+[node name="Mesh" type="MeshInstance3D" parent="Claire"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.085, 0)
+mesh = SubResource("CapsuleMesh_y8g4w")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Claire/Mesh"]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Claire/Mesh/Area3D"]
+shape = SubResource("CapsuleShape3D_6q2ck")
+
+[node name="Abilities" type="Node" parent="Claire"]
+
+[node name="Ability" type="Ability" parent="Claire/Abilities"]
+
+[connection signal="input_event" from="Blaire/Mesh/Area3D" to="Blaire" method="_on_input_event"]
+[connection signal="mouse_entered" from="Blaire/Mesh/Area3D" to="Blaire" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Blaire/Mesh/Area3D" to="Blaire" method="_on_mouse_exited"]
+[connection signal="input_event" from="Claire/Mesh/Area3D" to="Claire" method="_on_input_event"]
+[connection signal="mouse_entered" from="Claire/Mesh/Area3D" to="Claire" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Claire/Mesh/Area3D" to="Claire" method="_on_mouse_exited"]

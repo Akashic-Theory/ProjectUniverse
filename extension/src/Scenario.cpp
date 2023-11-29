@@ -1,4 +1,5 @@
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/window.hpp>
 
@@ -59,8 +60,10 @@ void Scenario::select_character(Character* character) {
 }
 
 Scenario::TeamType Scenario::start_next_turn() {
+    godot::UtilityFunctions::print("Ending turn", turn);
     deactivate(turn);
     turn = (turn + 1) % teams.size();
+    godot::UtilityFunctions::print("Starting turn", turn);
     activate(turn);
     return teams[turn].teamType;
 }

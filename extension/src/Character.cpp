@@ -1,5 +1,6 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
+#include <godot_cpp/classes/collision_object3d.hpp>
 
 #include "Character.h"
 #include "Ability.h"
@@ -14,10 +15,19 @@ Character::~Character() {
 
 godot::PackedStringArray Character::_get_configuration_warnings() const {
     godot::PackedStringArray error;
-    godot::TypedArray<Node>  abilities = find_children("", "Ability");
+    godot::TypedArray<Ability>  abilities = find_children("", "Ability");
+    godot::TypedArray<godot::CollisionObject3D> colliders = find_children("", "CollisionObject3D");
+
     if (abilities.size() == 0) {
         error.append("Character has no abilities!");
     }
+
+    if (colliders.size() == 0) {
+        error.append("Character has no collider!");
+    } else if (colliders.size() > 1) {
+        error.append("Character has more than one collider!");
+    }
+
     return error;
 }
 
@@ -58,5 +68,4 @@ void Character::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("get_active"), &Character::is_active);
     ClassDB::bind_method(D_METHOD("set_active", "enable"), &Character::enable);
-    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "active"), "set_active", "get_active");
 }

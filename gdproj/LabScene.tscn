@@ -1,13 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://bocgnnmbb1wng"]
+[gd_scene load_steps=14 format=3 uid="uid://bocgnnmbb1wng"]
 
-[ext_resource type="Script" path="res://TurnManager.gd" id="1_bs4ek"]
-[ext_resource type="Material" uid="uid://dcaa3o6i18uw0" path="res://highlight.tres" id="2_ouep7"]
-[ext_resource type="Script" path="res://PlayerManager.gd" id="2_uo24x"]
-[ext_resource type="Script" path="res://PlayerInput.gd" id="2_xx0f5"]
+[ext_resource type="Script" path="res://TurnManager.gd" id="1_bk1y4"]
+[ext_resource type="PackedScene" uid="uid://doh8as78d0h5t" path="res://UI/combat_ui.tscn" id="3_ypo3j"]
 [ext_resource type="Script" path="res://addons/region/region_node_3d.gd" id="5_cke8y"]
 [ext_resource type="Script" path="res://addons/region/sub_region_node_3d.gd" id="6_2ku07"]
-[ext_resource type="PackedScene" uid="uid://dp6kcjg8xpida" path="res://character_ui.tscn" id="7_xumql"]
-[ext_resource type="Texture2D" uid="uid://ddoclvo6hdy0r" path="res://sprites/temp_ability_icon.png" id="8_m85i7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m410"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_eit1d"]
 vertices = PackedVector3Array(-9, 0.483834, 2, -6.5, 0.483834, 2, -6.5, 0.483834, 0.25, -9, 0.483834, 2, -6.5, 0.483834, 0.25, -5.75, 0.483834, -0.5, -4, 0.483834, -9, -9, 0.483834, -9, -5.75, 0.483834, -0.5, -4, 0.483834, -0.5, -4, 0.483834, -9, -4, 0.483834, -9, -4, 0.483834, -0.5, -2, 0.483834, -0.5, 2.5, 0.483834, -9, -4, 0.483834, -9, -2, 0.483834, -0.5, -1.25, 0.483834, 0.25, -1.25, 0.483834, 0.25, -1.25, 0.483834, 1.75, 9, 0.483834, 1.5, 9, 0.483834, -9, 2.5, 0.483834, -9, -4.5, 3.23383, 1.5, -4.5, 3.23383, 2.75, -3.25, 3.23383, 2.75, -3.25, 3.23383, 1.5, -1.25, 0.483834, 1.75, -1.5, 0.483834, 4.25, -1.5, 0.483834, 9, 9, 0.483834, 9, 9, 0.483834, 1.5, -4.25, 0.483834, 1.75, -4.25, 0.483834, 2.5, -3.5, 0.483834, 2.5, -3.5, 0.483834, 1.75, -6.5, 0.483834, 4, -6.5, 0.483834, 2, -9, 0.483834, 2, -5.75, 0.483834, 4.75, -6.5, 0.483834, 4, -9, 0.483834, 2, -9, 0.483834, 9, -1.5, 0.483834, 9, -1.5, 0.483834, 4.25, -2, 0.483834, 4.75, -1.5, 0.483834, 9, -2, 0.483834, 4.75, -5.75, 0.483834, 4.75, -9, 0.483834, 9)
@@ -16,6 +14,16 @@ agent_radius = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_n057i"]
 size = Vector2(20, 20)
+
+[sub_resource type="GDScript" id="GDScript_xh3hj"]
+script/source = "extends Area3D
+
+func _ready():
+	#self.connect(\"input_event\", Party.find_children(\"\", \"PlayerInput\")[0], \"_on_terrain_hover\")
+	for player in Party.find_children(\"\", \"PlayerInput\"):
+		var sig = Callable(player, \"_on_terrain_hover\")
+		self.input_event.connect(sig)
+"
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_7xo0o"]
 
@@ -26,13 +34,10 @@ size = Vector3(3, 3, 3)
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_koxk5"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_y8g4w"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6q2ck"]
-
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_otvyc"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Scenario" type="Scenario"]
+script = ExtResource("1_bk1y4")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99634, 7.16439, 0)
@@ -41,6 +46,18 @@ omni_range = 40.0
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0)
 
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Evil_guy" type="Character" parent="Enemies"]
+
+[node name="Ability" type="Ability" parent="Enemies/Evil_guy"]
+"Targeting Mode" = 1147207680
+
+[node name="Area3D" type="Area3D" parent="Enemies/Evil_guy"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/Evil_guy/Area3D"]
+shape = SubResource("CapsuleShape3D_1m410")
+
 [node name="Environment" type="Node" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Environment"]
@@ -48,10 +65,11 @@ navigation_mesh = SubResource("NavigationMesh_eit1d")
 
 [node name="FloorPlane" type="MeshInstance3D" parent="Environment/NavigationRegion3D"]
 mesh = SubResource("PlaneMesh_n057i")
-skeleton = NodePath("../../..")
+skeleton = NodePath("")
 
 [node name="Area3D" type="Area3D" parent="Environment/NavigationRegion3D/FloorPlane"]
 collision_mask = 3
+script = SubResource("GDScript_xh3hj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
 shape = SubResource("WorldBoundaryShape3D_7xo0o")
@@ -68,35 +86,6 @@ shape = SubResource("BoxShape3D_y2oey")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7956, 0)
 mesh = SubResource("ImmediateMesh_koxk5")
-
-[node name="Actors" type="Node" parent="."]
-script = ExtResource("1_bs4ek")
-
-[node name="PlayerActors" type="Node" parent="Actors"]
-script = ExtResource("2_uo24x")
-
-[node name="Character" type="Character" parent="Actors/PlayerActors"]
-
-[node name="Blaire" type="MeshInstance3D" parent="Actors/PlayerActors/Character"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99634, 1.08476, 0)
-mesh = SubResource("CapsuleMesh_y8g4w")
-skeleton = NodePath("../../..")
-script = ExtResource("2_xx0f5")
-max_movement = 6.0
-hover_material = ExtResource("2_ouep7")
-
-[node name="Area3D" type="Area3D" parent="Actors/PlayerActors/Character/Blaire"]
-collision_layer = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/PlayerActors/Character/Blaire/Area3D"]
-shape = SubResource("CapsuleShape3D_6q2ck")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Actors/PlayerActors/Character/Blaire"]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
-debug_path_custom_point_size = 10.0
-
-[node name="Ability" type="Ability" parent="Actors/PlayerActors/Character"]
 
 [node name="Region" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -166,93 +155,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 depth = 0.1
 polygon = PackedVector2Array(2.53331, -0.505517, 3.35534, 1.70153, 6.36255, 1.97044, 7.59646, -0.944658, 4.76996, -2.82395)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CombatUI" parent="." instance=ExtResource("3_ypo3j")]
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-offset_right = 268.0
-offset_bottom = 412.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 30
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="CharacterUI" parent="CanvasLayer/MarginContainer/VBoxContainer" instance=ExtResource("7_xumql")]
-layout_mode = 2
-
-[node name="CharacterUI2" parent="CanvasLayer/MarginContainer/VBoxContainer" instance=ExtResource("7_xumql")]
-layout_mode = 2
-
-[node name="CharacterUI3" parent="CanvasLayer/MarginContainer/VBoxContainer" instance=ExtResource("7_xumql")]
-layout_mode = 2
-
-[node name="CharacterUI4" parent="CanvasLayer/MarginContainer/VBoxContainer" instance=ExtResource("7_xumql")]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -207.5
-offset_top = -90.0
-offset_right = 207.5
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer2"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 5
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 75)
-layout_mode = 2
-texture = ExtResource("8_m85i7")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("8_m85i7")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("8_m85i7")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("8_m85i7")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/PanelContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("8_m85i7")
-expand_mode = 2
-stretch_mode = 4
-
-[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_terrain_hover"]
+[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="." method="handle_input"]
 [connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Region" method="_on_projection_plane_input_event"]
-[connection signal="input_event" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_input_event"]
-[connection signal="mouse_entered" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Actors/PlayerActors/Character/Blaire/Area3D" to="Actors/PlayerActors/Character/Blaire" method="_on_mouse_exited"]

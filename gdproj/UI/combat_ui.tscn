@@ -1,0 +1,118 @@
+[gd_scene load_steps=7 format=3 uid="uid://doh8as78d0h5t"]
+
+[ext_resource type="PackedScene" uid="uid://dp6kcjg8xpida" path="res://UI/character_ui.tscn" id="1_uw43l"]
+[ext_resource type="Texture2D" uid="uid://ddoclvo6hdy0r" path="res://sprites/temp_ability_icon.png" id="2_0nh5e"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_mkpkr"]
+action = &"end_turn"
+
+[sub_resource type="Shortcut" id="Shortcut_72q5n"]
+events = [SubResource("InputEventAction_mkpkr")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_0nbb3"]
+action = &"move_hover"
+
+[sub_resource type="Shortcut" id="Shortcut_fdaq1"]
+events = [SubResource("InputEventAction_0nbb3")]
+
+[node name="CombatUI" type="CanvasLayer"]
+
+[node name="CharacterContainer" type="MarginContainer" parent="."]
+offset_right = 268.0
+offset_bottom = 412.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CharacterUI" parent="CharacterContainer/VBoxContainer" instance=ExtResource("1_uw43l")]
+layout_mode = 2
+
+[node name="CharacterUI2" parent="CharacterContainer/VBoxContainer" instance=ExtResource("1_uw43l")]
+layout_mode = 2
+
+[node name="CharacterUI3" parent="CharacterContainer/VBoxContainer" instance=ExtResource("1_uw43l")]
+layout_mode = 2
+
+[node name="CharacterUI4" parent="CharacterContainer/VBoxContainer" instance=ExtResource("1_uw43l")]
+layout_mode = 2
+
+[node name="ActionContainer" type="PanelContainer" parent="."]
+offset_left = 368.5
+offset_top = 558.0
+offset_right = 763.5
+offset_bottom = 633.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="ActionContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ActionContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 5
+
+[node name="TextureButton" type="TextureButton" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+shortcut = SubResource("Shortcut_72q5n")
+texture_normal = ExtResource("2_0nh5e")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+texture = ExtResource("2_0nh5e")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = ExtResource("2_0nh5e")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = ExtResource("2_0nh5e")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect4" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = ExtResource("2_0nh5e")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect5" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = ExtResource("2_0nh5e")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Preview" type="TextureButton" parent="."]
+anchors_preset = -1
+anchor_left = 0.944
+anchor_top = 0.029
+anchor_right = 0.984
+anchor_bottom = 0.099
+offset_left = 0.511963
+offset_top = 0.208
+offset_right = -0.567993
+offset_bottom = -0.152008
+toggle_mode = true
+shortcut = SubResource("Shortcut_fdaq1")
+texture_normal = ExtResource("2_0nh5e")

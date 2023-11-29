@@ -3,7 +3,7 @@
 #include <godot_cpp/classes/node3d.hpp>
 
 class Character : public godot::Node3D {
-    GDCLASS(Character, godot::Node3D);
+GDCLASS(Character, godot::Node3D);
 private:
     bool active;
 
