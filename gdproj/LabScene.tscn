@@ -141,7 +141,7 @@ polygon = PackedVector2Array(-1.82549, 4.22317, -1.81863, -0.954388, -6.45791, -
 [node name="SubRegion3" type="Node3D" parent="Region"]
 script = ExtResource("6_2ku07")
 type = 1
-vertices = PackedVector3Array(2.53331, 0.1, -0.505517, 3.35534, 0.1, 1.70153, 6.36255, 0.1, 1.97044, 7.59646, 0.1, -0.944658, 4.76996, 0.1, -2.82395)
+vertices = PackedVector3Array(-3.78895, 0.1, -2.57678, -1.73521, 0.1, 2.34341, 2.70049, 0.1, 2.00742, 3.87612, 0.1, -2.4756, 0.694189, 0.1, -4.77708)
 
 [node name="Area3D" type="Area3D" parent="Region/SubRegion3"]
 visible = false
@@ -154,7 +154,7 @@ monitorable = false
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion3/Area3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 depth = 0.1
-polygon = PackedVector2Array(2.53331, -0.505517, 3.35534, 1.70153, 6.36255, 1.97044, 7.59646, -0.944658, 4.76996, -2.82395)
+polygon = PackedVector2Array(-3.78895, -2.57678, -1.73521, 2.34341, 2.70049, 2.00742, 3.87612, -2.4756, 0.694189, -4.77708)
 
 [node name="PoissonDisc" type="Node3D" parent="Region"]
 script = ExtResource("4_bbnqa")

@@ -1,19 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://doh8as78d0h5t"]
+[gd_scene load_steps=14 format=3 uid="uid://doh8as78d0h5t"]
 
 [ext_resource type="PackedScene" uid="uid://dp6kcjg8xpida" path="res://UI/character_ui.tscn" id="1_uw43l"]
 [ext_resource type="Texture2D" uid="uid://ddoclvo6hdy0r" path="res://sprites/temp_ability_icon.png" id="2_0nh5e"]
+[ext_resource type="Texture2D" uid="uid://mitksmbso883" path="res://sprites/end_turn_icon.png" id="3_22u2n"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_p3cp5"]
+action = &"use_ability_1"
+
+[sub_resource type="Shortcut" id="Shortcut_xqnai"]
+events = [SubResource("InputEventAction_p3cp5")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ivj2e"]
+action = &"use_ability_2"
+
+[sub_resource type="Shortcut" id="Shortcut_eqhoe"]
+events = [SubResource("InputEventAction_ivj2e")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_8qknm"]
+action = &"use_ability_3"
+
+[sub_resource type="Shortcut" id="Shortcut_pqlkx"]
+events = [SubResource("InputEventAction_8qknm")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_wofyc"]
+action = &"use_ability_4"
+
+[sub_resource type="Shortcut" id="Shortcut_xpgb5"]
+events = [SubResource("InputEventAction_wofyc")]
 
 [sub_resource type="InputEventAction" id="InputEventAction_mkpkr"]
 action = &"end_turn"
 
 [sub_resource type="Shortcut" id="Shortcut_72q5n"]
 events = [SubResource("InputEventAction_mkpkr")]
-
-[sub_resource type="InputEventAction" id="InputEventAction_0nbb3"]
-action = &"move_hover"
-
-[sub_resource type="Shortcut" id="Shortcut_fdaq1"]
-events = [SubResource("InputEventAction_0nbb3")]
 
 [node name="CombatUI" type="CanvasLayer"]
 
@@ -61,58 +80,73 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 5
 
-[node name="TextureButton" type="TextureButton" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+[node name="MoveButton" type="TextureButton" parent="ActionContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-shortcut = SubResource("Shortcut_72q5n")
-texture_normal = ExtResource("2_0nh5e")
-stretch_mode = 4
-
-[node name="TextureRect" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 75)
-layout_mode = 2
-texture = ExtResource("2_0nh5e")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect2" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("2_0nh5e")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect3" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("2_0nh5e")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect4" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("2_0nh5e")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect5" type="TextureRect" parent="ActionContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-texture = ExtResource("2_0nh5e")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="Preview" type="TextureButton" parent="."]
-anchors_preset = -1
-anchor_left = 0.944
-anchor_top = 0.029
-anchor_right = 0.984
-anchor_bottom = 0.099
-offset_left = 0.511963
-offset_top = 0.208
-offset_right = -0.567993
-offset_bottom = -0.152008
 toggle_mode = true
-shortcut = SubResource("Shortcut_fdaq1")
+shortcut_in_tooltip = false
 texture_normal = ExtResource("2_0nh5e")
+stretch_mode = 4
+
+[node name="Ability1Button" type="TextureButton" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+shortcut = SubResource("Shortcut_xqnai")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("2_0nh5e")
+stretch_mode = 4
+
+[node name="Ability2Button" type="TextureButton" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+shortcut = SubResource("Shortcut_eqhoe")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("2_0nh5e")
+stretch_mode = 4
+
+[node name="Ability3Button" type="TextureButton" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+shortcut = SubResource("Shortcut_pqlkx")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("2_0nh5e")
+stretch_mode = 4
+
+[node name="Ability4Button" type="TextureButton" parent="ActionContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+shortcut = SubResource("Shortcut_xpgb5")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("2_0nh5e")
+stretch_mode = 4
+
+[node name="HudInfo" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_bottom = 45.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -75.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="EndTurnButton" type="TextureButton" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 75)
+layout_mode = 2
+shortcut = SubResource("Shortcut_72q5n")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("3_22u2n")
+stretch_mode = 4

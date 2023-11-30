@@ -6,7 +6,7 @@
 #include "Ability.h"
 
 Character::Character() {
-    godot::UtilityFunctions::print("Test");
+    //godot::UtilityFunctions::print("Test");
 }
 
 Character::~Character() {

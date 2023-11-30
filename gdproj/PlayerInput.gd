@@ -16,6 +16,7 @@ var path_mesh : MeshInstance3D
 var id: int # The character's unique ID
 signal selected(id: int, status: bool)
 
+
 func _physics_process(delta):
 	if path_mesh != null:
 		path_mesh.queue_free()
@@ -43,11 +44,10 @@ func _physics_process(delta):
 # Logic for path previews and movement input
 func _on_terrain_hover(camera, event, position, normal, shape_idx):
 	if is_turn && is_selected && !is_moving:
-		if event.is_action_pressed("start_move"):
-			is_moving = true
-			return
-		
 		if Input.is_action_pressed("move_hover"):
+			if event.is_action_pressed("start_move"):
+				is_moving = true
+				return
 			agent.target_position = position
 		else:
 			agent.target_position = global_position
@@ -66,6 +66,7 @@ func _on_input_event(camera, event, position, normal, shape_idx):
 	if is_turn && event.is_action_pressed("click"):
 		is_selected = !is_selected
 		selected.emit(id, is_selected)
+
 
 func change_turn(state: bool):
 	is_turn = state

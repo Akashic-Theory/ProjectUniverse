@@ -22,7 +22,6 @@ func _ready():
 		
 		for group in points:
 			for p in group:
-				print("a point")
 				var mesh = GraphicalUtility.point_mesh(Vector3(p.x, 0, p.y))
 				add_child(mesh)
 
@@ -73,6 +72,7 @@ func find_bounds() -> SubRegion.Bounds2D:
 
 
 func _on_projection_plane_input_event(camera, event, position, normal, shape_idx):
-	if event.is_action_pressed("click"):
-		print(find_bounds().min)
-		print(contains_point(position))
+	pass
+#	if event.is_action_pressed("click"):
+#		print(find_bounds().min)
+#		print(contains_point(position))
