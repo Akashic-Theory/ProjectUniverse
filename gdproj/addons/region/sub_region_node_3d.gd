@@ -40,7 +40,6 @@ class Bounds2D:
 	func _init(_min: Vector2, _max: Vector2):
 		min = _min
 		max = _max
-		print(min, ", ", max)
 
 	func contains_point(point : Vector2) -> bool:
 		return (min.x < point.x 
