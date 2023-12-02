@@ -34,6 +34,7 @@ shape = SubResource("CapsuleShape3D_6q2ck")
 [node name="Abilities" type="Node" parent="Blaire"]
 
 [node name="Ability" type="Ability" parent="Blaire/Abilities"]
+"Targeting Mode" = 0
 
 [node name="Claire" type="Character" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15555, -2.38419e-07, -1.59777)
@@ -61,6 +62,7 @@ shape = SubResource("CapsuleShape3D_6q2ck")
 [node name="Abilities" type="Node" parent="Claire"]
 
 [node name="Ability" type="Ability" parent="Claire/Abilities"]
+"Targeting Mode" = 0
 
 [connection signal="input_event" from="Blaire/Mesh/Area3D" to="Blaire" method="_on_input_event"]
 [connection signal="mouse_entered" from="Blaire/Mesh/Area3D" to="Blaire" method="_on_mouse_entered"]

@@ -3,3 +3,6 @@ cmake-build*
 
 # Ignore Jetbrains project config
 .idea
+
+# Ignore client-saved game setting files
+saved_settings.tres
