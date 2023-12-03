@@ -51,8 +51,8 @@ func generate_distribution() -> Array:
 		
 		# Limit the amount of placement attempts to 20
 		while !found_valid && count < 20:
-			point = Vector2(randf_range(sub_region.bounds.min.x, sub_region.bounds.max.x),
-							randf_range(sub_region.bounds.min.y, sub_region.bounds.max.y))
+			point = Vector2(randf_range(sub_region.bounds.min.x + r, sub_region.bounds.max.x - r),
+							randf_range(sub_region.bounds.min.y + r, sub_region.bounds.max.y - r))
 			
 			var result = check_valid_point(point)
 			if result > -1:
