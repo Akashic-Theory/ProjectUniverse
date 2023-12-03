@@ -15,7 +15,6 @@ jobs:
       matrix:
         build_type: ['Debug', 'Release']
         config:
-          - { name: '🍏 macOS Clang', os: macos-latest }
           - { name: '🐧 Linux GCC', os: ubuntu-latest }
           - { name: '🪟 Windows MSVC', os: windows-latest }
 
@@ -25,10 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Install Dependencies (macOS)
-        if: matrix.config.os == 'macos-latest'
-        run: brew install ccache ninja
 
       - name: Install Dependencies (Linux)
         if: matrix.config.os == 'ubuntu-latest'
