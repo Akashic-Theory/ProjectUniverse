@@ -1,7 +1,7 @@
 [configuration]
 
 entry_symbol = "universe_engine_init"
-compatibility_minimum = "4.1"
+compatibility_minimum = "4.2"
 
 [libraries]
 
@@ -16,3 +16,5 @@ macos.release="res://extension/bin/darwin/libprojectuniverse.dylib"
 Scenario = "res://extension/icon/mountaintop.svg"
 Character = "res://extension/icon/character.svg"
 Ability = "res://extension/icon/concentration-orb.svg"
+Region = "res://extension/icon/honeycomb.svg"
+SubRegion = "res://extension/icon/honeycomb.svg"
