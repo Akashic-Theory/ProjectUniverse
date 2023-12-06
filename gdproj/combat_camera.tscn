@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c20cgs1ebq0ho"]
+
+[ext_resource type="Script" path="res://combat_camera.gd" id="1_fv8j3"]
+
+[node name="CombatCamera" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0)
+script = ExtResource("1_fv8j3")
+pan_scale = 0.05
+min_zoom = 10.0

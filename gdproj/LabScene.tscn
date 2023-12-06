@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://bocgnnmbb1wng"]
+[gd_scene load_steps=19 format=3 uid="uid://bocgnnmbb1wng"]
 
 [ext_resource type="Script" path="res://TurnManager.gd" id="1_bk1y4"]
+[ext_resource type="PackedScene" uid="uid://c20cgs1ebq0ho" path="res://combat_camera.tscn" id="2_5j06f"]
 [ext_resource type="PackedScene" uid="uid://doh8as78d0h5t" path="res://UI/combat_ui.tscn" id="3_ypo3j"]
 [ext_resource type="Script" path="res://poisson_disc_node_3d.gd" id="4_bbnqa"]
 [ext_resource type="Script" path="res://addons/region/region_node_3d.gd" id="5_cke8y"]
@@ -47,8 +48,7 @@ script = ExtResource("1_bk1y4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99634, 7.16439, 0)
 omni_range = 40.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0)
+[node name="CombatCamera" parent="." instance=ExtResource("2_5j06f")]
 
 [node name="Enemies" type="Node" parent="."]
 
