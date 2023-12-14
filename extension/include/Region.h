@@ -1,18 +1,21 @@
 #pragma once
 
 #include <godot_cpp/classes/node3d.hpp>
+#include "godot_cpp/classes/camera3d.hpp"
 
 class SubRegion : public godot::Node3D {
     GDCLASS(SubRegion, godot::Node3D);
     friend class Region;
+    friend class RegionGizmoPlugin;
+protected:
+    static void _bind_methods();
 private:
     godot::Rect2 bounds;
     godot::PackedStringArray tags;
     godot::PackedVector2Array vertices;
 
     void recalc_bounds();
-protected:
-    static void _bind_methods();
+    godot::Vector3 gizmo_raycast(godot::Camera3D* camera, godot::Vector2 point) const;
 public:
     godot::PackedVector2Array get_vertices() const;
     void set_vertices(const godot::PackedVector2Array& verts);

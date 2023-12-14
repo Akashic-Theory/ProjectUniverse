@@ -1,4 +1,9 @@
 #include "Region.h"
+#include "godot_cpp/variant/utility_functions.hpp"
+
+#include <godot_cpp/classes/world3d.hpp>
+#include <godot_cpp/classes/physics_direct_space_state3d.hpp>
+#include <godot_cpp/classes/physics_ray_query_parameters3d.hpp>
 
 namespace {
     constexpr double SKIN = 1;
@@ -58,6 +63,20 @@ godot::PackedVector2Array SubRegion::get_vertices() const {
 void SubRegion::set_vertices(const godot::PackedVector2Array& verts) {
     vertices = verts;
     recalc_bounds();
+}
+
+// TODO: I bet there is a nicer way to do this. Investigate. If not, oh well, but this is kinda ugly.
+godot::Vector3 SubRegion::gizmo_raycast(godot::Camera3D* camera, godot::Vector2 point) const {
+    godot::Vector3 from = camera->project_ray_origin(point);
+    godot::Vector3 dir = camera->project_ray_normal(point);
+
+    if (dir.y == 0) {
+        // DIV0 - ray parallel to plane of intersection
+        return {0, 0, 0};
+    }
+
+    real_t dist = (get_global_position().y - from.y) / dir.y;
+    return from + dir * dist;
 }
 
 godot::PackedStringArray SubRegion::_get_configuration_warnings() const {
