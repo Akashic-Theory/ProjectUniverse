@@ -6,6 +6,7 @@ set(SRC src/gdextension_registration.cpp
         src/Pathfinding.cpp
         src/GraphicalUtility.cpp
         src/Scenario.cpp
+        src/Region.cpp
 )
 
 set(HEAD include/Character.h
@@ -13,6 +14,7 @@ set(HEAD include/Character.h
         include/Pathfinding.h
         include/GraphicalUtility.h
         include/Scenario.h
+        include/Region.h
 )
 
 add_library(${PROJECT_NAME} SHARED ${SRC} ${HEAD})
