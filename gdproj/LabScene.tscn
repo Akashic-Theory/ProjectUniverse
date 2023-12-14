@@ -1,11 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://bocgnnmbb1wng"]
+[gd_scene load_steps=15 format=3 uid="uid://bocgnnmbb1wng"]
 
 [ext_resource type="Script" path="res://TurnManager.gd" id="1_bk1y4"]
 [ext_resource type="PackedScene" uid="uid://c20cgs1ebq0ho" path="res://combat_camera.tscn" id="2_5j06f"]
 [ext_resource type="PackedScene" uid="uid://doh8as78d0h5t" path="res://UI/combat_ui.tscn" id="3_ypo3j"]
-[ext_resource type="Script" path="res://poisson_disc_node_3d.gd" id="4_bbnqa"]
-[ext_resource type="Script" path="res://addons/region/region_node_3d.gd" id="5_cke8y"]
-[ext_resource type="Script" path="res://addons/region/sub_region_node_3d.gd" id="6_2ku07"]
 [ext_resource type="PackedScene" uid="uid://cvy2vpdo0o0t2" path="res://UI/pause_menu.tscn" id="6_m3l5c"]
 [ext_resource type="Script" path="res://UI/pause_menu.gd" id="7_ebjml"]
 [ext_resource type="PackedScene" uid="uid://vl8sy5yrd1qi" path="res://UI/settings_menu.tscn" id="8_ui3wn"]
@@ -38,8 +35,6 @@ size = Vector3(3, 3, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_y2oey"]
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_koxk5"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_otvyc"]
 
 [node name="Scenario" type="Scenario"]
 script = ExtResource("1_bk1y4")
@@ -91,77 +86,6 @@ shape = SubResource("BoxShape3D_y2oey")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7956, 0)
 mesh = SubResource("ImmediateMesh_koxk5")
 
-[node name="Region" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-script = ExtResource("5_cke8y")
-
-[node name="ProjectionPlane" type="Area3D" parent="Region"]
-visible = false
-collision_layer = 4
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Region/ProjectionPlane"]
-shape = SubResource("WorldBoundaryShape3D_otvyc")
-
-[node name="SubRegion" type="Node3D" parent="Region"]
-script = ExtResource("6_2ku07")
-vertices = PackedVector3Array(-9.9649, 0, 9.9524, 10, 0, 10, 10, 0, -10, -10, 0, -10)
-
-[node name="Area3D" type="Area3D" parent="Region/SubRegion"]
-visible = false
-collision_layer = 8
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-monitorable = false
-
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion/Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-depth = 0.1
-polygon = PackedVector2Array(-9.9649, 9.9524, 10, 10, 10, -10, -10, -10)
-
-[node name="SubRegion2" type="Node3D" parent="Region"]
-script = ExtResource("6_2ku07")
-type = 1
-vertices = PackedVector3Array(-1.82549, 0.100001, 4.22317, -1.81863, 0.1, -0.954388, -6.45791, 0.253732, -0.493575, -6.27629, 0.099999, 4.26141)
-
-[node name="Area3D" type="Area3D" parent="Region/SubRegion2"]
-visible = false
-collision_layer = 8
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-monitorable = false
-
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion2/Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-depth = 0.1
-polygon = PackedVector2Array(-1.82549, 4.22317, -1.81863, -0.954388, -6.45791, -0.493575, -6.27629, 4.26141)
-
-[node name="SubRegion3" type="Node3D" parent="Region"]
-script = ExtResource("6_2ku07")
-type = 1
-vertices = PackedVector3Array(-3.78895, 0.1, -2.57678, -1.73521, 0.1, 2.34341, 2.70049, 0.1, 2.00742, 3.87612, 0.1, -2.4756, 0.694189, 0.1, -4.77708)
-
-[node name="Area3D" type="Area3D" parent="Region/SubRegion3"]
-visible = false
-collision_layer = 8
-collision_mask = 0
-input_ray_pickable = false
-monitoring = false
-monitorable = false
-
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Region/SubRegion3/Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-depth = 0.1
-polygon = PackedVector2Array(-3.78895, -2.57678, -1.73521, 2.34341, 2.70049, 2.00742, 3.87612, -2.4756, 0.694189, -4.77708)
-
-[node name="PoissonDisc" type="Node3D" parent="Region"]
-script = ExtResource("4_bbnqa")
-
 [node name="CombatUI" parent="." instance=ExtResource("3_ypo3j")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_m3l5c")]
@@ -172,4 +96,3 @@ script = ExtResource("7_ebjml")
 layout_mode = 1
 
 [connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="." method="handle_input"]
-[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="Region" method="_on_projection_plane_input_event"]
