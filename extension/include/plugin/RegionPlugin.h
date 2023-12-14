@@ -27,6 +27,8 @@ protected:
     static void _bind_methods();
 private:
     godot::EditorUndoRedoManager* undoRedo;
+    godot::Vector2 newVert;
+    int32_t active_handle;
 public:
     void init(godot::EditorUndoRedoManager* undoRedoManager);
     virtual bool _has_gizmo(godot::Node3D *for_node_3d) const;

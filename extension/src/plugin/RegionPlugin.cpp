@@ -43,6 +43,11 @@ void RegionGizmoPlugin::init(godot::EditorUndoRedoManager* undoRedoManager) {
     undoRedo = undoRedoManager;
     create_material("zone", godot::Color::named("DEEP_SKY_BLUE"));
     create_handle_material("handle");
+    create_handle_material("add");
+
+    get_material("add")->set_albedo(godot::Color::named("LIGHT_SEA_GREEN"));
+
+    active_handle = -1;
 }
 
 bool RegionGizmoPlugin::_has_gizmo(godot::Node3D* for_node_3d) const {
@@ -69,6 +74,7 @@ void RegionGizmoPlugin::_redraw(const godot::Ref<godot::EditorNode3DGizmo> &gizm
 
     godot::PackedVector3Array lines;
     godot::PackedVector3Array handles;
+    godot::PackedVector3Array additions;
 
     godot::Vector3 last = toVec3(target->vertices[target->vertices.size() - 1]);
     for (const auto& vert: target->vertices) {
@@ -76,7 +82,11 @@ void RegionGizmoPlugin::_redraw(const godot::Ref<godot::EditorNode3DGizmo> &gizm
         handles.push_back(v3);
         lines.push_back(last);
         lines.push_back(v3);
+        additions.push_back((v3 + last) / 2);
         last = v3;
+    }
+    if (active_handle != -1) {
+        additions.set(active_handle, toVec3(newVert));
     }
 
     auto material = get_material("zone", gizmo);
@@ -84,6 +94,9 @@ void RegionGizmoPlugin::_redraw(const godot::Ref<godot::EditorNode3DGizmo> &gizm
 
     auto handleMaterial = get_material("handle", gizmo);
     gizmo->add_handles(handles, handleMaterial, {});
+
+    auto adderMaterial = get_material("add", gizmo);
+    gizmo->add_handles(additions, adderMaterial, {}, false, true);
 }
 
 godot::String RegionGizmoPlugin::_get_gizmo_name() {
@@ -95,6 +108,9 @@ godot::Variant RegionGizmoPlugin::_get_handle_value(const godot::Ref<godot::Edit
     if (!target) {
         ERR_PRINT("Encountered gizmo without valid subregion target");
         return {};
+    }
+    if (secondary) {
+        return toVec3(newVert);
     }
     return toVec3(target->vertices[handle_id]);
 }
@@ -109,7 +125,13 @@ void RegionGizmoPlugin::_set_handle(const godot::Ref<godot::EditorNode3DGizmo> &
     }
 
     godot::Vector3 hit = target->gizmo_raycast(camera, screen_pos) - target->get_position();
-    target->vertices[handle_id] = toVec2(hit);
+    if (secondary) {
+        newVert = toVec2(hit);
+        active_handle = handle_id;
+    } else {
+        target->vertices[handle_id] = toVec2(hit);
+        active_handle = -1;
+    }
     target->notify_property_list_changed();
     target->update_gizmos();
 }
@@ -122,13 +144,17 @@ void RegionGizmoPlugin::_commit_handle(const godot::Ref<godot::EditorNode3DGizmo
         ERR_PRINT("Encountered gizmo without valid subregion target");
         return;
     }
-    if (cancel) {
+    if (cancel && !secondary) {
         target->vertices[handle_id] = toVec2(restore);
     }
     godot::PackedVector2Array oldVerts = target->vertices.duplicate();
-    oldVerts[handle_id] = toVec2(restore);
+    if (secondary) {
+        target->vertices.insert(handle_id, newVert);
+    } else {
+        oldVerts[handle_id] = toVec2(restore);
+    }
 
-    undoRedo->create_action("Move Handle");
+    undoRedo->create_action(secondary ? "Add Vertex" : "Move Handle");
     undoRedo->add_do_property(target, "vertices", target->vertices.duplicate());
     undoRedo->add_undo_property(target, "vertices", oldVerts);
     undoRedo->add_do_method(target, "update_gizmos");
