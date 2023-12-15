@@ -5,6 +5,9 @@ static var enemy_list: Array
 static var turn_order: Array
 static var current_turn: int
 
+# Temp reference to region for testing
+@onready var region = find_child("Region")
+
 func _ready():
 	find_child("EndTurnButton").pressed.connect(self.start_next_turn)
 	find_child("MoveButton").toggled.connect(toggle_move_hover)
@@ -14,7 +17,7 @@ func _ready():
 	#preview_button.button_pressed
 
 func handle_input(camera, event, position, normal, shape_idx):
-	pass
+	print(region.containing_subregion(Vector2(position.x, position.z), PackedStringArray(), PackedStringArray()))
 
 func toggle_move_hover(state: bool):
 	if state:
