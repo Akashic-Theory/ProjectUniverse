@@ -5,7 +5,7 @@
 #include "Character.h"
 #include "Ability.h"
 #include "Pathfinding.h"
-#include "GraphicalUtility.h"
+#include "util/GraphicalUtility.h"
 #include "Scenario.h"
 #include "Region.h"
 #include "plugin/RegionPlugin.h"

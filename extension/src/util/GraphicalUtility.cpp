@@ -2,13 +2,13 @@
 // Created by Patrick on 10/7/2023.
 //
 
-#include <godot_cpp/classes/mesh_instance3d.hpp>
-#include <godot_cpp/classes/immediate_mesh.hpp>
-#include <godot_cpp/classes/sphere_mesh.hpp>
-#include <godot_cpp/classes/orm_material3d.hpp>
-#include <godot_cpp/classes/scene_tree.hpp>
+#include "godot_cpp/classes/mesh_instance3d.hpp"
+#include "godot_cpp/classes/immediate_mesh.hpp"
+#include "godot_cpp/classes/sphere_mesh.hpp"
+#include "godot_cpp/classes/orm_material3d.hpp"
+#include "godot_cpp/classes/scene_tree.hpp"
 
-#include "GraphicalUtility.h"
+#include "util/GraphicalUtility.h"
 
 godot::MeshInstance3D* GraphicalUtility::get_path_mesh(const godot::PackedVector3Array& path) {
     godot::MeshInstance3D* meshInstance = memnew(godot::MeshInstance3D);

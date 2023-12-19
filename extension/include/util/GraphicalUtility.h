@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include <godot_cpp/classes/node3d.hpp>
-#include <godot_cpp/classes/mesh_instance3d.hpp>
+#include "godot_cpp/classes/node3d.hpp"
+#include "godot_cpp/classes/mesh_instance3d.hpp"
 
 class GraphicalUtility: public godot::Node3D {
     GDCLASS(GraphicalUtility, godot::Node3D);

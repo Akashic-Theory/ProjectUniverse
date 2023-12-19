@@ -1,5 +1,6 @@
 #include "Region.h"
 #include "godot_cpp/variant/utility_functions.hpp"
+#include "util/GraphicalUtility.h"
 
 #include <godot_cpp/classes/world3d.hpp>
 #include <godot_cpp/classes/physics_direct_space_state3d.hpp>
