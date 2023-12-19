@@ -19,6 +19,7 @@ set(HEAD include/Character.h
         include/plugin/RegionPlugin.h
 )
 
+add_compile_options("$<$<CONFIG:Debug>:-DDEBUG>")
 add_library(${PROJECT_NAME} SHARED ${SRC} ${HEAD})
 
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
