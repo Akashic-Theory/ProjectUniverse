@@ -27,9 +27,9 @@ void SubRegion::recalc_bounds() {
         if (vertices[i].y < begin.y)
             begin.y = vertices[i].y;
         if (vertices[i].x > end.x)
-            begin.x = vertices[i].x;
+            end.x = vertices[i].x;
         if (vertices[i].y > end.y)
-            begin.y = vertices[i].y;
+            end.y = vertices[i].y;
     }
     bounds.position = begin;
     bounds.set_end(end);
@@ -42,12 +42,15 @@ bool SubRegion::contains_point(const godot::Vector2& point) {
         return false;
     }
 
+    godot::Vector3 pos = get_position();
+    godot::Vector2 adjustedPoint = point - godot::Vector2(pos.x, pos.z);
+
     // Run ray-intersection algorithm
     size_t intersections = 0;
     godot::Vector2 lastVert = vertices[vertices.size() - 1];
     for (const auto& curVert: vertices) {
-        real_t ratio = (curVert.y - point.y) / (curVert.y - lastVert.y);
-        if (ratio < 0 || ratio >= 1 || point.x < ((curVert.x - lastVert.x) * ratio)) {
+        real_t ratio = (adjustedPoint.y - lastVert.y) / (curVert.y - lastVert.y);
+        if (ratio < 0 || ratio >= 1 || adjustedPoint.x < ((curVert.x - lastVert.x) * ratio + lastVert.x)) {
             lastVert = curVert;
             continue;
         }
