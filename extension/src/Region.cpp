@@ -1,10 +1,14 @@
 #include "Region.h"
-#include "godot_cpp/variant/utility_functions.hpp"
 #include "util/GraphicalUtility.h"
 
-#include <godot_cpp/classes/world3d.hpp>
 #include <godot_cpp/classes/physics_direct_space_state3d.hpp>
 #include <godot_cpp/classes/physics_ray_query_parameters3d.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/classes/world3d.hpp>
+#include <godot_cpp/classes/window.hpp>
+#include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/variant/callable.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 namespace {
     constexpr double SKIN = 1;
@@ -103,6 +107,29 @@ void SubRegion::_bind_methods() {
 /******************************************************************************
  *************************           Region           *************************
  ******************************************************************************/
+
+void Region::_ready() {
+    if (godot::Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+
+    godot::UtilityFunctions::print("Register Region");
+    godot::TypedArray<SubRegion> children = find_children("", SubRegion::get_class_static());
+    subRegions.clear();
+    for (int i = 0; i < children.size(); ++i) {
+        SubRegion* child = godot::Object::cast_to<SubRegion>(children[i]);
+        if (child) {
+            subRegions.push_back(child);
+#ifdef DEBUG
+            for (const auto& point: child->vertices) {
+                add_child((
+                        GraphicalUtility::get_point_mesh(godot::Vector3(point.x, 0, point.y) + child->get_position())
+                ));
+            }
+#endif
+        }
+    }
+}
 
 void Region::recalc_bounds() {
     godot::Vector3 pos = get_global_position();

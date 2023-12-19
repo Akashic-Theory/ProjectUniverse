@@ -34,6 +34,7 @@ private:
 protected:
     static void _bind_methods();
 public:
+    void _ready();
     godot::Rect2 get_bounds();
     SubRegion* containing_subregion(const godot::Vector2& point,
                                     const godot::PackedStringArray& required_tags,

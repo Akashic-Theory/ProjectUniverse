@@ -48,7 +48,6 @@ omni_range = 40.0
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Evil_guy" type="Character" parent="Enemies"]
-speed = 0.0
 
 [node name="Ability" type="Ability" parent="Enemies/Evil_guy"]
 "Targeting Mode" = 1147207680
@@ -102,7 +101,7 @@ layout_mode = 1
 vertices = PackedVector2Array(-9.91207, -10.0318, 10.0984, -10.1477, 10.0984, 9.90137, -10.0666, 10.0559)
 
 [node name="SubRegion1" type="SubRegion" parent="Region"]
-vertices = PackedVector2Array(-1.61121, -1.72466, 1.68115, -1.67098, 1.78851, 1.72874, -1.53964, 1.80031)
+vertices = PackedVector2Array(-1.77305, -1.79071, 1.70021, -1.733, 1.76216, 1.71632, -1.61308, 1.79323)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
 
 [node name="SubRegion2" type="SubRegion" parent="Region"]

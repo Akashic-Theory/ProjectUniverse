@@ -17,7 +17,7 @@ func _ready():
 	#preview_button.button_pressed
 
 func handle_input(camera, event, position, normal, shape_idx):
-	print(region.containing_subregion(Vector2(position.x, position.z), PackedStringArray(), PackedStringArray()))
+	pass
 
 func toggle_move_hover(state: bool):
 	if state:
