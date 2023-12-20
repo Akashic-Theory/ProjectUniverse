@@ -16,8 +16,8 @@ protected:
 private:
     godot::Ref<RegionGizmoPlugin> gizmoPlugin;
 public:
-    virtual void _enter_tree() override;
-    virtual void _exit_tree() override;
+    void _enter_tree() override;
+    void _exit_tree() override;
 };
 
 class RegionGizmoPlugin : public godot::EditorNode3DGizmoPlugin {

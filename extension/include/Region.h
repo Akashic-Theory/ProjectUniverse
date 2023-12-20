@@ -17,7 +17,7 @@ private:
     void recalc_bounds();
     godot::Vector3 gizmo_raycast(godot::Camera3D* camera, godot::Vector2 point) const;
 public:
-    godot::PackedVector2Array get_vertices() const;
+    [[nodiscard]] godot::PackedVector2Array get_vertices() const;
     void set_vertices(const godot::PackedVector2Array& verts);
     bool contains_point(const godot::Vector2& point);
 
@@ -36,9 +36,9 @@ protected:
 public:
     void _ready();
     godot::Rect2 get_bounds();
-    SubRegion* containing_subregion(const godot::Vector2& point,
-                                    const godot::PackedStringArray& required_tags,
-                                    const godot::PackedStringArray& prohibited_tags) const;
+    [[nodiscard]] SubRegion* containing_subregion(const godot::Vector2& point,
+                                                  const godot::PackedStringArray& required_tags,
+                                                  const godot::PackedStringArray& prohibited_tags) const;
 
     [[nodiscard]] godot::PackedStringArray _get_configuration_warnings() const;
 };
