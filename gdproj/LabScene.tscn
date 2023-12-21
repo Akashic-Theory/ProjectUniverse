@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bocgnnmbb1wng"]
+[gd_scene load_steps=17 format=3 uid="uid://bocgnnmbb1wng"]
 
 [ext_resource type="Script" path="res://TurnManager.gd" id="1_bk1y4"]
 [ext_resource type="PackedScene" uid="uid://c20cgs1ebq0ho" path="res://combat_camera.tscn" id="2_5j06f"]
@@ -10,9 +10,10 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m410"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_eit1d"]
-vertices = PackedVector3Array(-9, 0.483834, 2, -6.5, 0.483834, 2, -6.5, 0.483834, 0.25, -9, 0.483834, 2, -6.5, 0.483834, 0.25, -5.75, 0.483834, -0.5, -4, 0.483834, -9, -9, 0.483834, -9, -5.75, 0.483834, -0.5, -4, 0.483834, -0.5, -4, 0.483834, -9, -4, 0.483834, -9, -4, 0.483834, -0.5, -2, 0.483834, -0.5, 2.5, 0.483834, -9, -4, 0.483834, -9, -2, 0.483834, -0.5, -1.25, 0.483834, 0.25, -1.25, 0.483834, 0.25, -1.25, 0.483834, 1.75, 9, 0.483834, 1.5, 9, 0.483834, -9, 2.5, 0.483834, -9, -4.5, 3.23383, 1.5, -4.5, 3.23383, 2.75, -3.25, 3.23383, 2.75, -3.25, 3.23383, 1.5, -1.25, 0.483834, 1.75, -1.5, 0.483834, 4.25, -1.5, 0.483834, 9, 9, 0.483834, 9, 9, 0.483834, 1.5, -4.25, 0.483834, 1.75, -4.25, 0.483834, 2.5, -3.5, 0.483834, 2.5, -3.5, 0.483834, 1.75, -6.5, 0.483834, 4, -6.5, 0.483834, 2, -9, 0.483834, 2, -5.75, 0.483834, 4.75, -6.5, 0.483834, 4, -9, 0.483834, 2, -9, 0.483834, 9, -1.5, 0.483834, 9, -1.5, 0.483834, 4.25, -2, 0.483834, 4.75, -1.5, 0.483834, 9, -2, 0.483834, 4.75, -5.75, 0.483834, 4.75, -9, 0.483834, 9)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 7), PackedInt32Array(5, 7, 6), PackedInt32Array(10, 9, 8), PackedInt32Array(13, 12, 11), PackedInt32Array(16, 15, 17), PackedInt32Array(17, 15, 14), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 22), PackedInt32Array(20, 22, 21), PackedInt32Array(26, 25, 23), PackedInt32Array(23, 25, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(30, 27, 31), PackedInt32Array(35, 34, 32), PackedInt32Array(32, 34, 33), PackedInt32Array(38, 37, 36), PackedInt32Array(40, 39, 41), PackedInt32Array(41, 39, 42), PackedInt32Array(43, 45, 44), PackedInt32Array(47, 46, 48), PackedInt32Array(48, 46, 49)]
+vertices = PackedVector3Array(-9, 0.48383, 2, -6.5, 0.48383, 2, -6.5, 0.48383, 0.25, -9, 0.48383, 2, -6.5, 0.48383, 0.25, -5.75, 0.48383, -0.5, -4, 0.48383, -9, -9, 0.48383, -9, -5.75, 0.48383, -0.5, -4, 0.48383, -0.5, -4, 0.48383, -9, -1.25, 0.48383, 0.25, -1.25, 0.48383, 1.75, 4, 0.48383, 1.5, -2, 0.48383, -0.5, -1.25, 0.48383, 0.25, 4, 0.48383, 1.5, 4, 0.48383, -9, -4, 0.48383, -9, -4, 0.48383, -9, -4, 0.48383, -0.5, -2, 0.48383, -0.5, 5.25, 2.48383, 8, 3, 1.48383, 8, 2.75, 1.48383, 9, 9, 2.48383, 9, 5.25, 2.48383, 9, 9, 2.48383, -9, 6, 2.48383, -9, 6, 2.48383, 7.25, 9, 2.48383, 9, 6, 2.48383, 7.25, 5.25, 2.48383, 8, 9, 2.48383, 9, 6.25, 0.48383, -8.75, 6.25, 0.48383, 8.75, 9, 0.48383, 8.75, 9, 0.48383, -8.75, 2.75, 1.48383, 9, 3, 1.48383, 8, 1.5, 0.73383, 8, -6.5, 0.48383, 4, -6.5, 0.48383, 2, -9, 0.48383, 2, -5.75, 0.48383, 4.75, -6.5, 0.48383, 4, -9, 0.48383, 2, -9, 0.48383, 9, 1.5, 0.48383, 6, 4, 0.48383, 6, 4, 0.48383, 1.5, -1.25, 0.48383, 1.75, -1.25, 0.48383, 4, -5.75, 0.48383, 4.75, -9, 0.48383, 9, 2.75, 1.48383, 9, 1.5, 0.73383, 8, -0.1875, 0.48383, 9, -2, 0.48383, 4.75, -5.75, 0.48383, 4.75, 1.5, 0.73383, 8, 1, 0.48383, 6.5, 1, 0.48383, 6.5, 1.5, 0.48383, 6, -1.25, 0.48383, 4, -2, 0.48383, 4.75)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 7), PackedInt32Array(5, 7, 6), PackedInt32Array(10, 9, 8), PackedInt32Array(13, 12, 11), PackedInt32Array(15, 14, 16), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 14, 18), PackedInt32Array(21, 20, 19), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 26), PackedInt32Array(26, 22, 25), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(33, 32, 31), PackedInt32Array(37, 36, 34), PackedInt32Array(34, 36, 35), PackedInt32Array(40, 39, 38), PackedInt32Array(43, 42, 41), PackedInt32Array(45, 44, 46), PackedInt32Array(46, 44, 47), PackedInt32Array(52, 51, 48), PackedInt32Array(48, 51, 49), PackedInt32Array(49, 51, 50), PackedInt32Array(55, 57, 56), PackedInt32Array(56, 57, 53), PackedInt32Array(53, 57, 54), PackedInt32Array(61, 60, 58), PackedInt32Array(58, 60, 59), PackedInt32Array(63, 62, 64), PackedInt32Array(64, 62, 65)]
 agent_radius = 1.0
+region_min_size = 10.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_n057i"]
 size = Vector2(20, 20)
@@ -29,12 +30,21 @@ func _ready():
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_7xo0o"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_84is4"]
+size = Vector3(5, 2, 20)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qu0ut"]
+points = PackedVector3Array(-2, -1, -1.5, -2, -1, 1.5, 2, 1, -1.5, 2, -1, -1.5, 2, -1, 1.5, 2, 1, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3c8a"]
+size = Vector3(5, 2, 20)
+
 [sub_resource type="BoxMesh" id="BoxMesh_f1ly2"]
 size = Vector3(3, 3, 3)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_y2oey"]
-
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_koxk5"]
+[sub_resource type="PrismMesh" id="PrismMesh_mvgvw"]
+left_to_right = 1.0
+size = Vector3(4, 2, 3)
 
 [node name="Scenario" type="Scenario"]
 script = ExtResource("1_bk1y4")
@@ -60,6 +70,7 @@ shape = SubResource("CapsuleShape3D_1m410")
 [node name="Environment" type="Node" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0516243, 0, -0.000135422)
 navigation_mesh = SubResource("NavigationMesh_eit1d")
 
 [node name="FloorPlane" type="MeshInstance3D" parent="Environment/NavigationRegion3D"]
@@ -73,18 +84,25 @@ script = SubResource("GDScript_xh3hj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
 shape = SubResource("WorldBoundaryShape3D_7xo0o")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/NavigationRegion3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, 0)
+shape = SubResource("BoxShape3D_84is4")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 8.5)
+shape = SubResource("ConvexPolygonShape3D_qu0ut")
+
+[node name="Platform" type="MeshInstance3D" parent="Environment/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, 0)
+mesh = SubResource("BoxMesh_a3c8a")
+
+[node name="Box" type="MeshInstance3D" parent="Environment/NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.89627, 1.23383, 2.00247)
 mesh = SubResource("BoxMesh_f1ly2")
 
-[node name="Area3D" type="Area3D" parent="Environment/NavigationRegion3D/MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/NavigationRegion3D/MeshInstance3D/Area3D"]
-shape = SubResource("BoxShape3D_y2oey")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7956, 0)
-mesh = SubResource("ImmediateMesh_koxk5")
+[node name="Slope" type="MeshInstance3D" parent="Environment/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 8.5)
+mesh = SubResource("PrismMesh_mvgvw")
 
 [node name="CombatUI" parent="." instance=ExtResource("3_ypo3j")]
 
@@ -96,6 +114,7 @@ script = ExtResource("7_ebjml")
 layout_mode = 1
 
 [node name="Region" type="Region" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000650406, 2.01344, -0.0336065)
 
 [node name="SubRegion" type="SubRegion" parent="Region"]
 vertices = PackedVector2Array(-9.91207, -10.0318, 10.0984, -10.1477, 10.0984, 9.90137, -10.0666, 10.0559)
@@ -105,6 +124,6 @@ vertices = PackedVector2Array(-1.77305, -1.79071, 1.70021, -1.733, 1.76216, 1.71
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
 
 [node name="SubRegion2" type="SubRegion" parent="Region"]
-vertices = PackedVector2Array(3.15028, 2.32039, 3.73536, -2.8836, 7.39823, -2.79842, 6.55506, 2.34923)
+vertices = PackedVector2Array(1.17073, 9.85729, 1.20524, 6.65362, 3.82013, 6.65411, 3.39922, -9.63197, 5.69772, -9.70237, 5.76505, 9.81782)
 
 [connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="." method="handle_input"]
