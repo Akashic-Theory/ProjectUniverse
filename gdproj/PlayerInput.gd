@@ -33,6 +33,7 @@ func _physics_process(delta):
 		path_mesh = GraphicalUtility.path_mesh(trimmed_path)
 #		get_tree().get_root().add_child(path_mesh)
 		add_child(path_mesh)
+		path_mesh.position -= trimmed_path[0]
 	else:
 		# Move along path
 		var movement_delta: float = movement_speed * delta
@@ -49,6 +50,7 @@ func _on_terrain_hover(camera, event, position, normal, shape_idx):
 				is_moving = true
 				return
 			agent.target_position = position
+			print(position)
 		else:
 			agent.target_position = global_position
 
