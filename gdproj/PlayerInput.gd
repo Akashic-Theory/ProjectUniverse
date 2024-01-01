@@ -1,8 +1,6 @@
 class_name PlayerInput
 extends Character
 
-@export var movement_speed: float = 2.0
-@export var max_movement: float = 4.0
 @export var hover_material: Material = null
 
 @onready var agent := $NavigationAgent3D
@@ -36,7 +34,7 @@ func _physics_process(delta):
 		path_mesh.position -= trimmed_path[0]
 	else:
 		# Move along path
-		var movement_delta: float = movement_speed * delta
+		var movement_delta: float = speed * delta
 		var next_path_pos: Vector3 = agent.get_next_path_position()
 		#var new_velocity: Vector3 = (next_path_pos - global_position).normalized() * movement_delta
 		#global_position = global_position.move_toward(global_position + new_velocity, movement_delta)
@@ -50,7 +48,6 @@ func _on_terrain_hover(camera, event, position, normal, shape_idx):
 				is_moving = true
 				return
 			agent.target_position = position
-			print(position)
 		else:
 			agent.target_position = global_position
 

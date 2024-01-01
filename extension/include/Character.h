@@ -9,6 +9,7 @@ private:
 
     // Godot properties
     double speed;
+    double max_movement;
 
 protected:
     static void _bind_methods();
@@ -20,6 +21,8 @@ public:
     // Accessors
     double get_speed() const;
     void set_speed(const double& speed);
+    double get_movement() const;
+    void set_movement(const double& movement);
     void enable(bool active = true);
     bool is_active() const;
 
