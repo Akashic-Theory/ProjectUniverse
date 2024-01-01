@@ -10,9 +10,9 @@
 [node name="Party" type="Node"]
 
 [node name="Blaire" type="Character" parent="."]
-script = ExtResource("3_0xd6j")
-movement_speed = 15.0
+speed = 15.0
 max_movement = 6.0
+script = ExtResource("3_0xd6j")
 hover_material = ExtResource("2_4mpur")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="Blaire"]
@@ -37,10 +37,10 @@ shape = SubResource("CapsuleShape3D_6q2ck")
 "Targeting Mode" = 0
 
 [node name="Claire" type="Character" parent="."]
+speed = 10.0
+max_movement = 6.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15555, -2.38419e-07, -1.59777)
 script = ExtResource("3_0xd6j")
-movement_speed = 15.0
-max_movement = 6.0
 hover_material = ExtResource("2_4mpur")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="Claire"]

@@ -39,6 +39,14 @@ void Character::set_speed(const double& _speed) {
     speed = _speed;
 }
 
+double Character::get_movement() const {
+    return max_movement;
+}
+
+void Character::set_movement(const double& _movement) {
+    max_movement = _movement;
+}
+
 void Character::enable(bool _active) {
     if (active == _active) {
         return;
@@ -64,7 +72,10 @@ void Character::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("get_speed"), &Character::get_speed);
     ClassDB::bind_method(D_METHOD("set_speed", "speed"), &Character::set_speed);
+    ClassDB::bind_method(D_METHOD("get_movement"), &Character::get_movement);
+    ClassDB::bind_method(D_METHOD("set_movement", "movement"), &Character::set_movement);
     ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "speed"), "set_speed", "get_speed");
+    ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_movement"), "set_movement", "get_movement");
 
     ClassDB::bind_method(D_METHOD("get_active"), &Character::is_active);
     ClassDB::bind_method(D_METHOD("set_active", "enable"), &Character::enable);
