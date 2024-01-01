@@ -1,6 +1,6 @@
 extends Camera3D
 
-@export var pan_scale = 0.5
+const PAN_SCALE = 0.0025
 @export var zoom_scale = 0.5
 @export var min_zoom = 5.0
 @export var max_zoom = 25.0
@@ -19,7 +19,7 @@ func _unhandled_input(event):
 		is_panning = false
 	
 	if is_panning && event is InputEventMouseMotion:
-		global_position += -Vector3(event.relative.x, 0, event.relative.y) * pan_scale
+		global_position += -Vector3(event.relative.x, 0, event.relative.y) * PAN_SCALE * global_position.y
 	
 	# Zoom in/out
 	if event.is_action_pressed("zoom_camera_in", true):
