@@ -14,5 +14,6 @@ func _ready():
 		settings.bind_controls_from_file()
 	
 
+## Save settings to file
 func save_settings():
 	ResourceSaver.save(settings, "res://saved_settings.tres")

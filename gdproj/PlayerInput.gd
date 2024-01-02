@@ -1,6 +1,7 @@
 class_name PlayerInput
 extends Character
 
+## Material used when hovered over with the cursor
 @export var hover_material: Material = null
 
 @onready var agent := $NavigationAgent3D
