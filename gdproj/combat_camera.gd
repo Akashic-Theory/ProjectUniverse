@@ -12,6 +12,9 @@ func _ready():
 
 
 func _unhandled_input(event):
+	if Game.is_paused:
+		return
+	
 	# Camera Panning
 	if event.is_action_pressed("pan_camera"):
 		is_panning = true

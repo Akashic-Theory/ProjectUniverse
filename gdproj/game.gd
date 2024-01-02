@@ -1,5 +1,7 @@
 extends Node
 
+var is_paused = false
+
 var settings: GameSettings
 
 func _ready():

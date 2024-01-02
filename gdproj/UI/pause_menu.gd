@@ -1,12 +1,10 @@
 extends Control
 
-@onready var paused = false
-
 func _unhandled_key_input(event):
 	if event.is_action_pressed("pause_game"):
-		paused = !paused
-		set_visible(paused)
+		Game.is_paused = !Game.is_paused
+		set_visible(Game.is_paused)
 		
 		#TEMP saving settings file, move this to on settings menu close
-		if !paused:
+		if !Game.is_paused:
 			Game.save_settings()
