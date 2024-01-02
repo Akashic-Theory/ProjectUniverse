@@ -1,9 +1,7 @@
 extends Resource
 class_name GameSettings
 
-@export var num: int
-
-# Controls
+## Saved control scheme
 @export var controls: Dictionary
 
 # Note for resources: values set in _init() are overridden
@@ -19,14 +17,14 @@ func _init():
 		"use_ability_4": InputMap.action_get_events("use_ability_4")
 	}
 
-# Clear default bindings and apply saved ones
+## Clear default bindings and apply saved ones
 func bind_controls_from_file():
 	for action in controls:
 		InputMap.action_erase_events(action)
 		for event in controls[action]:
 			InputMap.action_add_event(action, event)
 
-# Rebind a single control
+## Rebind a single control
 func rebind_control(action: String, old: InputEvent, new: InputEvent):
 	InputMap.action_erase_event(action, old)
 	InputMap.action_add_event(action, new)
