@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bocgnnmbb1wng"]
+[gd_scene load_steps=18 format=3 uid="uid://bocgnnmbb1wng"]
 
 [ext_resource type="Script" path="res://TurnManager.gd" id="1_bk1y4"]
+[ext_resource type="Material" uid="uid://dcaa3o6i18uw0" path="res://highlight.tres" id="1_t7cjm"]
 [ext_resource type="PackedScene" uid="uid://c20cgs1ebq0ho" path="res://combat_camera.tscn" id="2_5j06f"]
 [ext_resource type="PackedScene" uid="uid://doh8as78d0h5t" path="res://UI/combat_ui.tscn" id="3_ypo3j"]
 [ext_resource type="PackedScene" uid="uid://cvy2vpdo0o0t2" path="res://UI/pause_menu.tscn" id="6_m3l5c"]
@@ -47,6 +48,7 @@ left_to_right = 1.0
 size = Vector3(4, 2, 3)
 
 [node name="Scenario" type="Scenario"]
+hover_material = ExtResource("1_t7cjm")
 script = ExtResource("1_bk1y4")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -78,18 +80,18 @@ navigation_mesh = SubResource("NavigationMesh_eit1d")
 mesh = SubResource("PlaneMesh_n057i")
 skeleton = NodePath("")
 
-[node name="Area3D" type="Area3D" parent="Environment/NavigationRegion3D/FloorPlane"]
+[node name="TerrainCollider" type="Area3D" parent="Environment/NavigationRegion3D/FloorPlane"]
 collision_mask = 3
 script = SubResource("GDScript_xh3hj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/TerrainCollider"]
 shape = SubResource("WorldBoundaryShape3D_7xo0o")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/TerrainCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, 0)
 shape = SubResource("BoxShape3D_84is4")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/Area3D"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Environment/NavigationRegion3D/FloorPlane/TerrainCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 8.5)
 shape = SubResource("ConvexPolygonShape3D_qu0ut")
 
@@ -127,4 +129,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
 [node name="SubRegion2" type="SubRegion" parent="Region"]
 vertices = PackedVector2Array(1.17073, 9.85729, 1.20524, 6.65362, 3.82013, 6.65411, 3.39922, -9.63197, 5.69772, -9.70237, 5.76505, 9.81782)
 
-[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/Area3D" to="." method="handle_input"]
+[connection signal="input_event" from="Environment/NavigationRegion3D/FloorPlane/TerrainCollider" to="." method="handle_input"]
