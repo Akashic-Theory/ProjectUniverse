@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdmaruv3ph7ff"]
+[gd_scene load_steps=4 format=3 uid="uid://cdmaruv3ph7ff"]
 
-[ext_resource type="Material" uid="uid://dcaa3o6i18uw0" path="res://highlight.tres" id="2_4mpur"]
 [ext_resource type="Script" path="res://PlayerInput.gd" id="3_0xd6j"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_y8g4w"]
@@ -13,7 +12,6 @@
 speed = 15.0
 max_movement = 6.0
 script = ExtResource("3_0xd6j")
-hover_material = ExtResource("2_4mpur")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="Blaire"]
 path_desired_distance = 0.5
@@ -41,7 +39,6 @@ speed = 10.0
 max_movement = 6.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15555, -2.38419e-07, -1.59777)
 script = ExtResource("3_0xd6j")
-hover_material = ExtResource("2_4mpur")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="Claire"]
 path_desired_distance = 0.5

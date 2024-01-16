@@ -22,7 +22,7 @@ private:
     std::vector<Team> teams;
     size_t turn;
     Character* selected;
-    godot::Material* hover_material;
+    godot::Ref<godot::Material> hover_material;
 
     void activate(size_t team) const;
     void deactivate(size_t team) const;
@@ -32,8 +32,8 @@ protected:
 public:
     Scenario();
 
-    godot::Material* get_hover_material() const;
-    void set_hover_material(godot::Material* hover_material);
+    godot::Ref<godot::Material> get_hover_material() const;
+    void set_hover_material(godot::Ref<godot::Material> hover_material);
     void handle_input(godot::Node* camera, godot::InputEvent* event, godot::Vector3 position, godot::Vector3 normal, int shape_idx, godot::Object* source);
     void register_character(TeamType team, Character* character);
     void print_characters() const;
