@@ -12,6 +12,9 @@ func _ready():
 	find_child("EndTurnButton").pressed.connect(self.start_next_turn)
 	find_child("MoveButton").toggled.connect(toggle_move_hover)
 	
+	var terrain = find_child("TerrainCollider")
+	terrain.input_event.connect(self.handle_input.bind(terrain))
+	
 	var party = get_tree().get_nodes_in_group("party")
 	for character in party:
 		register_character(Scenario.PLAYER, character)

@@ -1,6 +1,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/collision_object3d.hpp>
+#include <godot_cpp/classes/navigation_agent3d.hpp>
 
 #include "Character.h"
 #include "Ability.h"
@@ -47,6 +48,11 @@ void Character::set_movement(const double& _movement) {
     max_movement = _movement;
 }
 
+void Character::set_target(const godot::Vector3 &position) {
+    //TODO: Cache agent reference
+    cast_to<godot::NavigationAgent3D>(find_child("NavigationAgent3D"))->set_target_position(position);
+}
+
 void Character::enable(bool _active) {
     if (active == _active) {
         return;
@@ -65,6 +71,14 @@ bool Character::is_active() const {
     return active;
 }
 
+bool Character::is_moving() const {
+    return moving;
+}
+
+void Character::movement_ended() {
+    moving = false;
+}
+
 void Character::_bind_methods() {
     using namespace godot;
     ADD_SIGNAL(MethodInfo("activated"));
@@ -80,4 +94,5 @@ void Character::_bind_methods() {
 
     ClassDB::bind_method(D_METHOD("get_active"), &Character::is_active);
     ClassDB::bind_method(D_METHOD("set_active", "enable"), &Character::enable);
+    ClassDB::bind_method(D_METHOD("is_moving"), &Character::is_moving);
 }

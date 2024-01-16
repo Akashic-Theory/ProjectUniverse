@@ -5,6 +5,8 @@
 #include <godot_cpp/classes/area3d.hpp>
 #include <godot_cpp/classes/mesh_instance3d.hpp>
 #include <godot_cpp/classes/input_event.hpp>
+#include <godot_cpp/classes/navigation_agent3d.hpp>
+#include <godot_cpp/classes/input.hpp>
 
 #include "Scenario.h"
 
@@ -22,7 +24,7 @@ Scenario::Scenario() :
 }
 
 void Scenario::process_mouse_event(Character* character, godot::MeshInstance3D* mesh, bool entered) {
-    godot::UtilityFunctions::print(character->is_active(), entered, selected == character);
+    //godot::UtilityFunctions::print(character->is_active(), entered, selected == character);
     if (entered && character->is_active()) {
         mesh->set_surface_override_material(0, hover_material);
     } else if (!entered && character != selected) {
@@ -52,14 +54,23 @@ void Scenario::register_character(const TeamType team, Character* character) {
         // Sub to area3d signal
         godot::Area3D* collider = cast_to<godot::Area3D>(character->find_child("Area3D"));
         godot::MeshInstance3D* mesh = cast_to<godot::MeshInstance3D>(character->find_child("Mesh"));
+        godot::NavigationAgent3D* agent = cast_to<godot::NavigationAgent3D>(character->find_child("NavigationAgent3D"));
 
+        if (!collider) {
+            ERR_FAIL_MSG(godot::vformat("Failed to find 'Area3D' in children of %s", character->get_name()));
+        }
         if (!mesh) {
             ERR_FAIL_MSG(godot::vformat("Failed to find 'Mesh' in children of %s", character->get_name()));
+        }
+        if (!agent) {
+            ERR_FAIL_MSG(godot::vformat("Failed to find 'NavigationAgent3D' in children of %s", character->get_name()));
         }
 
         collider->connect("input_event", callable_mp(this, &Scenario::handle_input).bind(character));
         collider->connect("mouse_entered", callable_mp(this, &Scenario::process_mouse_event).bind(character, mesh, true));
         collider->connect("mouse_exited", callable_mp(this, &Scenario::process_mouse_event).bind(character, mesh, false));
+
+        agent->connect("navigation_finished", callable_mp(character, &Character::movement_ended));
     }
 
     teams[team].members.push_back(character);
@@ -78,11 +89,11 @@ void Scenario::print_characters() const {
     }
 }
 
-godot::Material* Scenario::get_hover_material() const {
+godot::Ref<godot::Material> Scenario::get_hover_material() const {
     return hover_material;
 }
 
-void Scenario::set_hover_material(godot::Material* _hover_material) {
+void Scenario::set_hover_material(godot::Ref<godot::Material> _hover_material) {
     hover_material = _hover_material;
 }
 
@@ -97,6 +108,33 @@ void Scenario::handle_input(godot::Node* camera, godot::InputEvent* event, godot
     }
 
     // Terrain interaction
+    godot::Area3D* terrain = cast_to<godot::Area3D>(source);
+
+    // TODO: Replace terrain with custom type
+    if (terrain && terrain->get_name() == godot::StringName("TerrainCollider")) {
+
+        //if is_turn && is_selected && !is_moving:
+        //		if Input.is_action_pressed("move_hover"):
+        //			if event.is_action_pressed("start_move"):
+        //				is_moving = true
+        //				return
+        //			agent.target_position = position
+        //		else:
+        //			agent.target_position = global_position
+
+        if (teams[turn].teamType == PLAYER && selected && !selected->is_moving()) {
+
+            if (godot::Input::get_singleton()->is_action_pressed("move_hover")){
+                if (event->is_action_pressed("start_move")) {
+                    selected->moving = true;
+                    return;
+                }
+                selected->set_target(position);
+            } else {
+                selected->set_target(selected->get_global_position());
+            }
+        }
+    }
 
 }
 
@@ -129,6 +167,7 @@ Scenario::TeamType Scenario::start_next_turn() {
 
 void Scenario::set_turn(Scenario::TeamType team) {
     godot::UtilityFunctions::print("Ending turn", turn);
+    select_character(nullptr);
     deactivate(turn);
 
     for (int i = 0; i < teams.size(); i++) {
@@ -158,6 +197,8 @@ void Scenario::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_hover_material", "hover_material"), &Scenario::set_hover_material);
     ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "hover_material", PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_hover_material", "get_hover_material");
 
+    ClassDB::bind_method(D_METHOD("handle_input", "camera", "event", "position", "normal", "shape_idx", "source"),
+                         &Scenario::handle_input);
     ClassDB::bind_method(D_METHOD("register_character", "team", "character"),
                          &Scenario::register_character);
     ClassDB::bind_method(D_METHOD("print_characters"),

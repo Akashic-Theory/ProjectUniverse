@@ -9,6 +9,10 @@ godot::PackedVector3Array Pathfinding::trim_path (const godot::PackedVector3Arra
     double distance = 0.0;
     double lastDistance = 0.0;
 
+    if (path.size() == 0) {
+        return newPath;
+    }
+
     newPath.append(path[0]);
     for (int i = 1; i < path.size(); i++) {
         distance += path[i - 1].distance_to(path[i]);
