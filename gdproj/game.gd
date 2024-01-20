@@ -15,7 +15,7 @@ func _ready():
 		save_settings()
 	else:
 		settings.bind_controls_from_file()
-	
+
 
 ## Save settings to file
 func save_settings():

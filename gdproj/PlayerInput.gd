@@ -7,6 +7,8 @@ var path_mesh : MeshInstance3D
 signal selected()
 
 func _physics_process(delta):
+	#print(Input.is_action_pressed("move_hover"))
+	
 	if path_mesh != null:
 		path_mesh.queue_free()
 	

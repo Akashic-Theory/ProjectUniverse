@@ -32,7 +32,7 @@ shape = SubResource("CapsuleShape3D_6q2ck")
 [node name="Abilities" type="Node" parent="Blaire"]
 
 [node name="Ability" type="Ability" parent="Blaire/Abilities"]
-"Targeting Mode" = 0
+"Targeting Mode" = 200509888
 
 [node name="Claire" type="Character" parent="." groups=["party"]]
 speed = 10.0

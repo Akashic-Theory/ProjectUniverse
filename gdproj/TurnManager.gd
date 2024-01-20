@@ -8,9 +8,8 @@ static var current_turn: int
 # Temp reference to region for testing
 @onready var region = find_child("Region")
 func _ready():
-
+	# Connect combat UI buttons
 	find_child("EndTurnButton").pressed.connect(self.start_next_turn)
-	find_child("MoveButton").toggled.connect(toggle_move_hover)
 	
 	var terrain = find_child("TerrainCollider")
 	terrain.input_event.connect(self.handle_input.bind(terrain))
@@ -26,11 +25,4 @@ func _ready():
 	
 	#var preview_button = find_child("Preview") as TextureButton
 	#preview_button.button_pressed
-
-
-func toggle_move_hover(state: bool):
-	if state:
-		Input.action_press("move_hover")
-	else:
-		Input.action_release("move_hover")
 
