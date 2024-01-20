@@ -29,3 +29,15 @@ func rebind_control(action: String, old: InputEvent, new: InputEvent):
 	InputMap.action_erase_event(action, old)
 	InputMap.action_add_event(action, new)
 	controls[action] = InputMap.action_get_events(action)
+
+
+## Bind a single control
+func bind_control(action: String, new: InputEvent):
+	InputMap.action_add_event(action, new)
+	controls[action] = InputMap.action_get_events(action)
+
+
+## Unbind a single control
+func unbind_control(action: String, new: InputEvent):
+	InputMap.action_erase_event(action, new)
+	controls[action] = InputMap.action_get_events(action)
