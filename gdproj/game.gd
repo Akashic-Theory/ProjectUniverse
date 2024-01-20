@@ -10,6 +10,7 @@ func _ready():
 	
 	# If no settings file exists, create a new one
 	if settings == null:
+		print("No settings file found. Creating new one...")
 		settings = GameSettings.new()
 		save_settings()
 	else:
@@ -19,3 +20,4 @@ func _ready():
 ## Save settings to file
 func save_settings():
 	ResourceSaver.save(settings, "res://saved_settings.tres")
+	print_verbose("Saved settings to 'saved_settings.tres'")
