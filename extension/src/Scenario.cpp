@@ -157,18 +157,21 @@ void Scenario::select_character(Character* character) {
 }
 
 Scenario::TeamType Scenario::start_next_turn() {
-    godot::UtilityFunctions::print("Ending turn", turn);
+    godot::UtilityFunctions::print("Ending turn ", turn);
     deactivate(turn);
+    emit_signal("turn_ended", turn);
     turn = (turn + 1) % teams.size();
-    godot::UtilityFunctions::print("Starting turn", turn);
+    godot::UtilityFunctions::print("Starting turn ", turn);
     activate(turn);
+    emit_signal("turn_started", turn);
     return teams[turn].teamType;
 }
 
 void Scenario::set_turn(Scenario::TeamType team) {
-    godot::UtilityFunctions::print("Ending turn", turn);
+    godot::UtilityFunctions::print("Ending turn ", turn);
     select_character(nullptr);
     deactivate(turn);
+    emit_signal("turn_ended", turn);
 
     for (int i = 0; i < teams.size(); i++) {
         if (teams[i].teamType == team) {
@@ -177,8 +180,9 @@ void Scenario::set_turn(Scenario::TeamType team) {
         }
     }
 
-    godot::UtilityFunctions::print("Starting turn", turn);
+    godot::UtilityFunctions::print("Starting turn ", turn);
     activate(turn);
+    emit_signal("turn_started", turn);
 }
 
 void Scenario::_bind_methods() {
@@ -187,6 +191,10 @@ void Scenario::_bind_methods() {
     characterProp.class_name = "Character";
     ADD_SIGNAL(MethodInfo("character_selected", characterProp));
     ADD_SIGNAL(MethodInfo("character_deselected", characterProp));
+
+    PropertyInfo teamProp = PropertyInfo(godot::Variant::INT, "team");
+    ADD_SIGNAL(MethodInfo("turn_started", teamProp));
+    ADD_SIGNAL(MethodInfo("turn_ended", teamProp));
 
     BIND_ENUM_CONSTANT(PLAYER);
     BIND_ENUM_CONSTANT(ALLY);
