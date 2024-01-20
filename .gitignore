@@ -7,3 +7,6 @@ bin
 
 # Ignore client-saved game setting files
 saved_settings.tres
+
+# Ignore project exports
+builds
