@@ -48,6 +48,14 @@ void Character::set_movement(const double& _movement) {
     max_movement = _movement;
 }
 
+double Character::get_remaining_movement() const {
+    return remaining_movement;
+}
+
+void Character::set_remaining_movement(const double& _movement) {
+    remaining_movement = _movement;
+}
+
 void Character::set_target(const godot::Vector3 &position) {
     //TODO: Cache agent reference
     cast_to<godot::NavigationAgent3D>(find_child("NavigationAgent3D"))->set_target_position(position);
@@ -61,6 +69,7 @@ void Character::enable(bool _active) {
     active = _active;
 
     if (active) {
+        remaining_movement = max_movement;
         emit_signal("activated");
     } else {
         emit_signal("deactivated");
@@ -91,6 +100,10 @@ void Character::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_movement"), &Character::get_movement);
     ClassDB::bind_method(D_METHOD("set_movement", "movement"), &Character::set_movement);
     ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_movement"), "set_movement", "get_movement");
+
+    ClassDB::bind_method(D_METHOD("get_remaining_movement"), &Character::get_remaining_movement);
+    ClassDB::bind_method(D_METHOD("set_remaining_movement", "movement"), &Character::set_remaining_movement);
+    ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "remaining_movement"), "set_remaining_movement", "get_remaining_movement");
 
     ClassDB::bind_method(D_METHOD("get_active"), &Character::is_active);
     ClassDB::bind_method(D_METHOD("set_active", "enable"), &Character::enable);
