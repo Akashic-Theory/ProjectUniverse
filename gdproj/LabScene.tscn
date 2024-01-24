@@ -108,6 +108,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 8.5)
 mesh = SubResource("PrismMesh_mvgvw")
 
 [node name="CombatUI" parent="." instance=ExtResource("3_ypo3j")]
+unique_name_in_owner = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("6_m3l5c")]
 visible = false
