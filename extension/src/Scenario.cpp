@@ -51,7 +51,6 @@ void Scenario::register_character(const TeamType team, Character* character) {
     }
 
     if (team == PLAYER) {
-        // Sub to area3d signal
         godot::Area3D* collider = cast_to<godot::Area3D>(character->find_child("Area3D"));
         godot::MeshInstance3D* mesh = cast_to<godot::MeshInstance3D>(character->find_child("Mesh"));
         godot::NavigationAgent3D* agent = cast_to<godot::NavigationAgent3D>(character->find_child("NavigationAgent3D"));
@@ -66,11 +65,15 @@ void Scenario::register_character(const TeamType team, Character* character) {
             ERR_FAIL_MSG(godot::vformat("Failed to find 'NavigationAgent3D' in children of %s", character->get_name()));
         }
 
+        // Collision Signals
         collider->connect("input_event", callable_mp(this, &Scenario::handle_input).bind(character));
         collider->connect("mouse_entered", callable_mp(this, &Scenario::process_mouse_event).bind(character, mesh, true));
         collider->connect("mouse_exited", callable_mp(this, &Scenario::process_mouse_event).bind(character, mesh, false));
 
+        // NavAgent Signals
         agent->connect("navigation_finished", callable_mp(character, &Character::movement_ended));
+
+        // Connect UI
     }
 
     teams[team].members.push_back(character);
@@ -112,21 +115,11 @@ void Scenario::handle_input(godot::Node* camera, godot::InputEvent* event, godot
 
     // TODO: Replace terrain with custom type
     if (terrain && terrain->get_name() == godot::StringName("TerrainCollider")) {
-
-        //if is_turn && is_selected && !is_moving:
-        //		if Input.is_action_pressed("move_hover"):
-        //			if event.is_action_pressed("start_move"):
-        //				is_moving = true
-        //				return
-        //			agent.target_position = position
-        //		else:
-        //			agent.target_position = global_position
-
         if (teams[turn].teamType == PLAYER && selected && !selected->is_moving()) {
-
             if (godot::Input::get_singleton()->is_action_pressed("move_hover")){
                 if (event->is_action_pressed("start_move")) {
                     selected->moving = true;
+
                     return;
                 }
                 selected->set_target(position);
@@ -140,6 +133,14 @@ void Scenario::handle_input(godot::Node* camera, godot::InputEvent* event, godot
 
 void Scenario::select_character(Character* character) {
     if (selected == character) {
+        // TODO: Figure out why the below code mystery crashes the game
+//        emit_signal("character_deselected", selected);
+//        godot::MeshInstance3D* mesh = cast_to<godot::MeshInstance3D>(selected->find_child("Mesh"));
+//        if (mesh) {
+//            mesh->set_surface_override_material(0, nullptr);
+//        }
+//
+//        selected = nullptr;
         return;
     }
 
@@ -150,6 +151,7 @@ void Scenario::select_character(Character* character) {
             mesh->set_surface_override_material(0, nullptr);
         }
     }
+
     selected = character;
     if (selected) {
         emit_signal("character_selected", selected);
