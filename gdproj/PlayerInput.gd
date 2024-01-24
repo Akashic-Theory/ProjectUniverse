@@ -25,5 +25,7 @@ func _physics_process(delta):
 	else:
 		# Move along path
 		var movement_delta: float = speed * delta
+		remaining_movement -= movement_delta
+		print(remaining_movement)
 		var next_path_pos: Vector3 = agent.get_next_path_position()
 		global_position = global_position.move_toward(next_path_pos, movement_delta)
