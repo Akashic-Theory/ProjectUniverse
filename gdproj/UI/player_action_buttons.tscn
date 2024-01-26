@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dj4555gbbyaxb"]
+[gd_scene load_steps=14 format=3 uid="uid://dj4555gbbyaxb"]
 
 [ext_resource type="Script" path="res://UI/player_action_buttons.gd" id="1_46r88"]
 [ext_resource type="Texture2D" uid="uid://c4pw4wwxvhh5v" path="res://sprites/ui_buttons/move_normal.png" id="1_wheh3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dfotiuxfmwlyw" path="res://sprites/ui_buttons/move_disabled.png" id="3_6l83m"]
 [ext_resource type="Script" path="res://UI/action_button.gd" id="5_hmaap"]
 [ext_resource type="Texture2D" uid="uid://ddoclvo6hdy0r" path="res://sprites/temp_ability_icon.png" id="5_tire7"]
+[ext_resource type="Script" path="res://UI/remaining_move_label.gd" id="6_ayvn7"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ivj2e"]
 action = &"use_ability_2"
@@ -59,6 +60,20 @@ texture_disabled = ExtResource("3_6l83m")
 stretch_mode = 4
 script = ExtResource("5_hmaap")
 actionName = &"move_hover"
+
+[node name="RemainingMoveLabel" type="RichTextLabel" parent="HBoxContainer/MoveButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.508
+offset_top = -25.0
+grow_horizontal = 2
+text = "00.0m"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+script = ExtResource("6_ayvn7")
 
 [node name="Ability1Button" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(75, 75)

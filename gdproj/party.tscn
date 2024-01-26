@@ -14,7 +14,7 @@ max_movement = 6.0
 script = ExtResource("3_0xd6j")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="Blaire"]
-path_desired_distance = 0.2
+path_desired_distance = 0.5
 target_desired_distance = 0.5
 debug_path_custom_point_size = 10.0
 
