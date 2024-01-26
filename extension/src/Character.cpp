@@ -70,6 +70,7 @@ void Character::enable(bool _active) {
 
     if (active) {
         remaining_movement = max_movement;
+        emit_signal("moved", remaining_movement);
         emit_signal("activated");
     } else {
         emit_signal("deactivated");
@@ -86,6 +87,11 @@ bool Character::is_moving() const {
 
 void Character::movement_ended() {
     moving = false;
+    //TODO: Figure out why not all movement being used
+    if (remaining_movement < 1){
+        remaining_movement = 0;
+    }
+    emit_signal("moved", remaining_movement);
 }
 
 void Character::_bind_methods() {
@@ -100,6 +106,9 @@ void Character::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_movement"), &Character::get_movement);
     ClassDB::bind_method(D_METHOD("set_movement", "movement"), &Character::set_movement);
     ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "max_movement"), "set_movement", "get_movement");
+
+    PropertyInfo moveProp = PropertyInfo(godot::Variant::FLOAT, "remaining");
+    ADD_SIGNAL(MethodInfo("moved", moveProp));
 
     ClassDB::bind_method(D_METHOD("get_remaining_movement"), &Character::get_remaining_movement);
     ClassDB::bind_method(D_METHOD("set_remaining_movement", "movement"), &Character::set_remaining_movement);
