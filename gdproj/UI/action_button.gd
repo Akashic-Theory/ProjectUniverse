@@ -34,6 +34,15 @@ func _toggled(toggled_on):
 		Input.action_release(actionName)
 
 
+# If we read a normal input for the action, have the button respond
+func _unhandled_input(event):
+	if toggle_mode:
+		if event.is_action_pressed(actionName):
+			set_pressed_no_signal(true)
+		elif event.is_action_released(actionName):
+			set_pressed_no_signal(false)
+
+
 ## If the turn is/was the player's, set disabled on/off
 func _on_turn(team, is_turn_start):
 	if team == Scenario.TeamType.PLAYER:
