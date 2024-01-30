@@ -58,7 +58,8 @@ void Character::set_remaining_movement(const double& _movement) {
 
 void Character::set_target(const godot::Vector3 &position) {
     //TODO: Cache agent reference
-    cast_to<godot::NavigationAgent3D>(find_child("NavigationAgent3D"))->set_target_position(position);
+    godot::NavigationAgent3D* agent = cast_to<godot::NavigationAgent3D>(find_child("NavigationAgent3D"));
+    agent->set_target_position(position);
 }
 
 void Character::enable(bool _active) {

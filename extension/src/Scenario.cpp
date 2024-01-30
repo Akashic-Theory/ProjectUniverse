@@ -116,16 +116,12 @@ void Scenario::handle_input(godot::Node* camera, godot::InputEvent* event, godot
     // TODO: Replace terrain with custom type
     if (terrain && terrain->get_name() == godot::StringName("TerrainCollider")) {
         if (teams[turn].teamType == PLAYER && selected && !selected->is_moving()) {
-            if (godot::Input::get_singleton()->is_action_pressed("move_hover")){
-                if (event->is_action_pressed("start_move")) {
-                    selected->moving = true;
-
-                    return;
-                }
-                selected->set_target(position);
-            } else {
-                selected->set_target(selected->get_global_position());
+            if (godot::Input::get_singleton()->is_action_pressed("move_hover")
+            && event->is_action_pressed("start_move")) {
+                selected->moving = true;
+                return;
             }
+            selected->set_target(position);
         }
     }
 
