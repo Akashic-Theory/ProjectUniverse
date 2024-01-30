@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpriteSet" load_steps=3 format=3 uid="uid://b5u4idqsx42q3"]
+
+[ext_resource type="Script" path="res://sprites/sprite_set.gd" id="1_rlw10"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://kg37l22fjlb4" path="res://sprites/ui_buttons/move.png" id="2_twn6s"]
+
+[resource]
+script = ExtResource("1_rlw10")
+type = 0
+sprites = ExtResource("2_twn6s")
