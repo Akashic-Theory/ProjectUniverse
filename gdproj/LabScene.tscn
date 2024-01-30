@@ -61,7 +61,6 @@ omni_range = 40.0
 
 [node name="Evil_guy" type="Character" parent="Enemies"]
 speed = 0.0078125
-max_movement = 0.0
 
 [node name="Ability" type="Ability" parent="Enemies/Evil_guy"]
 "Targeting Mode" = 1147207680
