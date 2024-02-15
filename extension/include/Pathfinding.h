@@ -12,7 +12,6 @@ protected:
     static void _bind_methods();
 public:
     static godot::PackedVector3Array trim_path(const godot::PackedVector3Array& path, const double maxDistance);
-    // TODO: fix this return, should be a godot::Variant::FLOAT but it won't let me do that
-    static godot::Variant count_path(const godot::PackedVector3Array& path);
+    static double count_path(const godot::PackedVector3Array& path);
 };
 

@@ -32,7 +32,7 @@ godot::PackedVector3Array Pathfinding::trim_path (const godot::PackedVector3Arra
     return newPath;
 }
 
-godot::Variant Pathfinding::count_path (const godot::PackedVector3Array& path) {
+double Pathfinding::count_path (const godot::PackedVector3Array& path) {
     double distance = 0.0;
 
     for (int i = 1; i < path.size(); i++) {

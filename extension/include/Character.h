@@ -23,16 +23,16 @@ public:
     ~Character();
 
     // Accessors
-    double get_speed() const;
+    [[nodiscard]] double get_speed() const;
     void set_speed(const double& speed);
-    double get_movement() const;
+    [[nodiscard]] double get_movement() const;
     void set_movement(const double& movement);
-    double get_remaining_movement() const;
+    [[nodiscard]] double get_remaining_movement() const;
     void set_remaining_movement(const double& _movement);
     void set_target(const godot::Vector3& position);
     void enable(bool active = true);
-    bool is_active() const;
-    bool is_moving() const;
+    [[nodiscard]] bool is_active() const;
+    [[nodiscard]] bool is_moving() const;
     void movement_ended();
 
     [[nodiscard]] godot::PackedStringArray _get_configuration_warnings() const;
