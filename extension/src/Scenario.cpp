@@ -128,24 +128,17 @@ void Scenario::handle_input(godot::Node* camera, godot::InputEvent* event, godot
 }
 
 void Scenario::select_character(Character* character) {
-    if (selected == character) {
-        // TODO: Figure out why the below code mystery crashes the game
-//        emit_signal("character_deselected", selected);
-//        godot::MeshInstance3D* mesh = cast_to<godot::MeshInstance3D>(selected->find_child("Mesh"));
-//        if (mesh) {
-//            mesh->set_surface_override_material(0, nullptr);
-//        }
-//
-//        selected = nullptr;
-        return;
-    }
-
     if (selected) {
         emit_signal("character_deselected", selected);
         godot::MeshInstance3D* mesh = cast_to<godot::MeshInstance3D>(selected->find_child("Mesh"));
         if (mesh) {
             mesh->set_surface_override_material(0, nullptr);
         }
+    }
+
+    if (selected == character) {
+        selected = nullptr;
+        return;
     }
 
     selected = character;
