@@ -27,7 +27,7 @@ void register_gameplay_types(godot::ModuleInitializationLevel level) {
             godot::ClassDB::register_class<Ability>();
             godot::ClassDB::register_class<Pathfinding>();
             godot::ClassDB::register_class<GraphicalUtility>();
-            godot::ClassDB::register_class<Scenario>();
+            godot::ClassDB::register_class<Scenario>(true);
             godot::ClassDB::register_class<Region>();
             godot::ClassDB::register_class<SubRegion>();
             break;

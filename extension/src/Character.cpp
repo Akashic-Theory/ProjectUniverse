@@ -86,12 +86,17 @@ bool Character::is_moving() const {
     return moving;
 }
 
+void Character::start_moving() {
+    //godot::UtilityFunctions::print("movement started");
+    moving = true;
+}
+
 void Character::movement_ended() {
+    //godot::UtilityFunctions::print("movement stopped");
     moving = false;
-    //TODO: Figure out why not all movement being used
-    if (remaining_movement < 1){
-        remaining_movement = 0;
-    }
+//    if (remaining_movement < 1){
+//        remaining_movement = 0;
+//    }
     emit_signal("moved", remaining_movement);
 }
 
@@ -115,7 +120,10 @@ void Character::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_remaining_movement", "movement"), &Character::set_remaining_movement);
     ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "remaining_movement"), "set_remaining_movement", "get_remaining_movement");
 
+    ClassDB::bind_method(D_METHOD("set_target", "position"), &Character::set_target);
+
     ClassDB::bind_method(D_METHOD("get_active"), &Character::is_active);
     ClassDB::bind_method(D_METHOD("set_active", "enable"), &Character::enable);
     ClassDB::bind_method(D_METHOD("is_moving"), &Character::is_moving);
+    ClassDB::bind_method(D_METHOD("start_moving"), &Character::start_moving);
 }

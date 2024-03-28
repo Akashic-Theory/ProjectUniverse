@@ -33,6 +33,7 @@ public:
     void enable(bool active = true);
     [[nodiscard]] bool is_active() const;
     [[nodiscard]] bool is_moving() const;
+    void start_moving();
     void movement_ended();
 
     [[nodiscard]] godot::PackedStringArray _get_configuration_warnings() const;

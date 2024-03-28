@@ -34,10 +34,11 @@ public:
 
     [[nodiscard]] godot::Ref<godot::Material> get_hover_material() const;
     void set_hover_material(godot::Ref<godot::Material> hover_material);
-    void handle_input(godot::Node* camera, godot::InputEvent* event, godot::Vector3 position, godot::Vector3 normal, int shape_idx, godot::Object* source);
+    virtual void handle_input(godot::Node* camera, godot::InputEvent* event, godot::Vector3 position, godot::Vector3 normal, int shape_idx, godot::Object* source);
     void register_character(TeamType team, Character* character);
     void print_characters() const;
     void select_character(Character* character);
+    [[nodiscard]] Character* get_selected() const;
     TeamType start_next_turn();
     void set_turn(TeamType team);
 };

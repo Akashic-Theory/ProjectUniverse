@@ -66,12 +66,14 @@ void Scenario::register_character(const TeamType team, Character* character) {
         }
 
         // Collision Signals
+        // TODO: reuse this when 4.3
         collider->connect("input_event", callable_mp(this, &Scenario::handle_input).bind(character));
         collider->connect("mouse_entered", callable_mp(this, &Scenario::process_mouse_event).bind(character, mesh, true));
         collider->connect("mouse_exited", callable_mp(this, &Scenario::process_mouse_event).bind(character, mesh, false));
 
         // NavAgent Signals
-        agent->connect("navigation_finished", callable_mp(character, &Character::movement_ended));
+        character->connect("move_completed", callable_mp(character, &Character::movement_ended));
+        //agent->connect("navigation_finished", callable_mp(character, &Character::movement_ended));
 
         // Connect UI
     }
@@ -113,17 +115,17 @@ void Scenario::handle_input(godot::Node* camera, godot::InputEvent* event, godot
     // Terrain interaction
     godot::Area3D* terrain = cast_to<godot::Area3D>(source);
 
-    // TODO: Replace terrain with custom type
-    if (terrain && terrain->get_name() == godot::StringName("TerrainCollider")) {
-        if (teams[turn].teamType == PLAYER && selected && !selected->is_moving()) {
-            if (godot::Input::get_singleton()->is_action_pressed("move_hover")
-            && event->is_action_pressed("start_move")) {
-                selected->moving = true;
-                return;
-            }
-            selected->set_target(position);
-        }
-    }
+//    // TODO: Replace terrain with custom type
+//    if (terrain && terrain->get_name() == godot::StringName("TerrainCollider")) {
+//        if (teams[turn].teamType == PLAYER && selected && !selected->is_moving()) {
+//            if (godot::Input::get_singleton()->is_action_pressed("move_hover")
+//            && event->is_action_pressed("start_move")) {
+//                selected->moving = true;
+//                return;
+//            }
+//            selected->set_target(position);
+//        }
+//    }
 
 }
 
@@ -145,6 +147,10 @@ void Scenario::select_character(Character* character) {
     if (selected) {
         emit_signal("character_selected", selected);
     }
+}
+
+Character* Scenario::get_selected() const {
+    return selected;
 }
 
 Scenario::TeamType Scenario::start_next_turn() {
@@ -196,8 +202,12 @@ void Scenario::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_hover_material", "hover_material"), &Scenario::set_hover_material);
     ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "hover_material", PROPERTY_HINT_RESOURCE_TYPE, "Material"), "set_hover_material", "get_hover_material");
 
+
+    // TODO: Change this when updating to 4.3
+    //BIND_VIRTUAL_METHOD(Scenario, handle_input);
     ClassDB::bind_method(D_METHOD("handle_input", "camera", "event", "position", "normal", "shape_idx", "source"),
                          &Scenario::handle_input);
+
     ClassDB::bind_method(D_METHOD("register_character", "team", "character"),
                          &Scenario::register_character);
     ClassDB::bind_method(D_METHOD("print_characters"),
@@ -208,4 +218,6 @@ void Scenario::_bind_methods() {
                          &Scenario::set_turn);
     ClassDB::bind_method(D_METHOD("select_character", "character"),
                          &Scenario::select_character);
+    ClassDB::bind_method(D_METHOD("get_selected"),
+                         &Scenario::get_selected);
 }
