@@ -38,9 +38,7 @@ func _handle_input(camera: Node, event: InputEvent, position: Vector3, normal: V
 		# TODO: Add additional check for whether it is the player's turn
 		if cur_selected && !cur_selected.is_moving():
 			if Input.is_action_pressed("move_hover"):
-				# call move hover
 				cur_selected.draw_move_path()
 				if event.is_action_pressed("start_move"):
-					# do move
 					cur_selected.start_movement()
 			cur_selected.set_target(position)

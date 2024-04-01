@@ -40,6 +40,31 @@ clip_tabs = false
 layout_mode = 2
 theme = ExtResource("1_uc0ss")
 
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/TabContainer/Graphics"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_uc0ss")
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+theme = ExtResource("1_uc0ss")
+text = "Fullscreen"
+vertical_alignment = 1
+
+[node name="AssignFullscreen" type="CheckBox" parent="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer/GridContainer"]
+layout_mode = 2
+
 [node name="Audio" type="MarginContainer" parent="PanelContainer/MarginContainer/TabContainer"]
 visible = false
 layout_mode = 2
@@ -208,6 +233,7 @@ theme = ExtResource("1_uc0ss")
 action_mode = 0
 button_mask = 3
 
+[connection signal="toggled" from="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer/GridContainer/AssignFullscreen" to="." method="_toggle_graphics_setting" binds= ["fullscreen"]]
 [connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignMove0" to="." method="_start_assign_key" binds= ["move_hover", 0]]
 [connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignMove1" to="." method="_start_assign_key" binds= ["move_hover", 1]]
 [connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignEndTurn0" to="." method="_start_assign_key" binds= ["end_turn", 0]]
