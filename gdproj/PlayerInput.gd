@@ -26,6 +26,9 @@ func _ready():
 	remaining_movement = max_movement
 
 func _physics_process(delta):
+	if path_mesh != null && !Input.is_action_pressed("move_hover"):
+		path_mesh.queue_free()
+	
 	# As long as we are supposed to be moving and the path is valid...
 	if is_moving() && current_path.size() > 1:
 		var movement_delta: float = speed * delta

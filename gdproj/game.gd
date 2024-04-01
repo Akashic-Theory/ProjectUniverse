@@ -13,8 +13,21 @@ func _ready():
 		print("No settings file found. Creating new one...")
 		settings = GameSettings.new()
 		save_settings()
-	else:
-		settings.bind_controls_from_file()
+	
+	settings.request_viewport_change.connect(apply_viewport_change)
+	
+	settings.apply_graphics_from_file()
+	settings.bind_controls_from_file()
+
+
+## Called by settings resource to apply a graphics setting that it cannot apply itself
+func apply_viewport_change(tag: String, value: Variant):
+	print("applying viewport change...")
+	match tag:
+		"fullscreen":
+			get_viewport().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if value else Window.MODE_MAXIMIZED
+		_:
+			push_warning("Graphics setting tag '", tag, "' not fully implemented")
 
 
 ## Save settings to file
