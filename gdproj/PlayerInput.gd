@@ -24,10 +24,15 @@ signal move_completed()
 
 func _ready():
 	remaining_movement = max_movement
+	
+	path_mesh = GraphicalUtility.path_mesh(current_path)
+	add_child(path_mesh)
+	path_mesh.position = Vector3.ZERO
 
 func _physics_process(delta):
-	if path_mesh != null && !Input.is_action_pressed("move_hover"):
-		path_mesh.queue_free()
+	if !Input.is_action_pressed("move_hover"):
+		path_mesh.mesh.clear_surfaces()
+		pass
 	
 	# As long as we are supposed to be moving and the path is valid...
 	if is_moving() && current_path.size() > 1:
@@ -48,17 +53,12 @@ func draw_move_path():
 	if current_path.size() < 2:
 		return
 	
-	# Every time this function is called, the old mesh will be freed for the new one
-	if path_mesh != null:
-		path_mesh.queue_free()
-	path_mesh = GraphicalUtility.path_mesh(current_path)
-	add_child(path_mesh)
-	path_mesh.position -= current_path[0]
+	GraphicalUtility.update_path_mesh(path_mesh, current_path)
 
 
 func start_movement():
 	# Free the path preview
-	path_mesh.queue_free()
+	path_mesh.mesh.clear_surfaces()
 	
 	next_path_index = 1
 	start_moving()
