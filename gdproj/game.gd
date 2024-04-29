@@ -16,18 +16,19 @@ func _ready():
 	
 	settings.request_viewport_change.connect(apply_viewport_change)
 	
-	settings.apply_graphics_from_file()
-	settings.bind_controls_from_file()
+	settings.apply_graphics_from_saved()
+	settings.bind_controls_from_saved()
 
 
 ## Called by settings resource to apply a graphics setting that it cannot apply itself
 func apply_viewport_change(tag: String, value: Variant):
 	print("applying viewport change...")
+	# Because each setting needs to be treated differently, we need a match tree to set every setting
 	match tag:
-		"fullscreen":
-			get_viewport().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if value else Window.MODE_MAXIMIZED
+		"windowMode":
+			get_viewport().mode = value + 2
 		_:
-			push_warning("Graphics setting tag '", tag, "' not fully implemented")
+			push_warning("Graphics setting '", tag, "' not fully implemented")
 
 
 ## Save settings to file
