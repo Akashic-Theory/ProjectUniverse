@@ -4,9 +4,13 @@
 font_names = PackedStringArray("Cambria")
 
 [resource]
-Label/font_sizes/font_size = 20
+BoxContainer/constants/separation = 15
+GridContainer/constants/h_separation = 15
+GridContainer/constants/v_separation = 15
+Label/font_sizes/font_size = 30
 Label/fonts/font = SubResource("SystemFont_mg2hy")
 MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
+TabContainer/font_sizes/font_size = 25

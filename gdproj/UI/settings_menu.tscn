@@ -13,17 +13,16 @@ grow_vertical = 2
 script = ExtResource("1_7xhrb")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(500, 300)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.4
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+anchor_bottom = 0.6
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -31,30 +30,27 @@ grow_vertical = 2
 layout_mode = 2
 theme = ExtResource("1_uc0ss")
 
-[node name="TabContainer" type="TabContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_uc0ss")
 tab_alignment = 1
 clip_tabs = false
 
-[node name="Graphics" type="MarginContainer" parent="PanelContainer/MarginContainer/TabContainer"]
+[node name="Graphics" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer"]
 layout_mode = 2
 theme = ExtResource("1_uc0ss")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/TabContainer/Graphics"]
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Graphics"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_uc0ss")
-
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer/GridContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Graphics/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 1
@@ -62,187 +58,53 @@ theme = ExtResource("1_uc0ss")
 text = "Fullscreen"
 vertical_alignment = 1
 
-[node name="AssignFullscreen" type="CheckBox" parent="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer/GridContainer"]
+[node name="AssignFullscreen" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Graphics/GridContainer"]
 layout_mode = 2
 
-[node name="Audio" type="MarginContainer" parent="PanelContainer/MarginContainer/TabContainer"]
+[node name="ApplyButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Graphics"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Apply"
+
+[node name="Audio" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 theme = ExtResource("1_uc0ss")
 
-[node name="Controls" type="ScrollContainer" parent="PanelContainer/MarginContainer/TabContainer"]
+[node name="Controls" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/TabContainer/Controls"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Controls"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_uc0ss")
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer"]
+[node name="ControlsBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Controls/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 15
-theme_override_constants/v_separation = 15
-columns = 3
-
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 1
 theme = ExtResource("1_uc0ss")
-text = "Movement"
-vertical_alignment = 1
 
-[node name="AssignMove0" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
 
-[node name="AssignMove1" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
+[node name="ConfirmButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "OK"
+
+[node name="ResetButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Reset all settings"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
+text = "Cancel"
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 1
-theme = ExtResource("1_uc0ss")
-text = "End Turn"
-vertical_alignment = 1
-
-[node name="AssignEndTurn0" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="AssignEndTurn1" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 1
-theme = ExtResource("1_uc0ss")
-text = "Ability 1"
-vertical_alignment = 1
-
-[node name="AssignAbilityOne0" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="AssignAbilityOne1" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 1
-theme = ExtResource("1_uc0ss")
-text = "Ability 2"
-vertical_alignment = 1
-
-[node name="AssignAbilityTwo0" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="AssignAbilityTwo1" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 1
-theme = ExtResource("1_uc0ss")
-text = "Ability 3"
-vertical_alignment = 1
-
-[node name="AssignAbilityThree0" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="AssignAbilityThree1" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="Label6" type="Label" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 1
-theme = ExtResource("1_uc0ss")
-text = "Ability 4"
-vertical_alignment = 1
-
-[node name="AssignAbilityFour0" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[node name="AssignAbilityFour1" type="Button" parent="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("1_uc0ss")
-action_mode = 0
-button_mask = 3
-
-[connection signal="toggled" from="PanelContainer/MarginContainer/TabContainer/Graphics/MarginContainer/GridContainer/AssignFullscreen" to="." method="_toggle_graphics_setting" binds= ["fullscreen"]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignMove0" to="." method="_start_assign_key" binds= ["move_hover", 0]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignMove1" to="." method="_start_assign_key" binds= ["move_hover", 1]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignEndTurn0" to="." method="_start_assign_key" binds= ["end_turn", 0]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignEndTurn1" to="." method="_start_assign_key" binds= ["end_turn", 1]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityOne0" to="." method="_start_assign_key" binds= ["use_ability_1", 0]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityOne1" to="." method="_start_assign_key" binds= ["use_ability_1", 1]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityTwo0" to="." method="_start_assign_key" binds= ["use_ability_2", 0]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityTwo1" to="." method="_start_assign_key" binds= ["use_ability_2", 1]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityThree0" to="." method="_start_assign_key" binds= ["use_ability_3", 0]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityThree1" to="." method="_start_assign_key" binds= ["use_ability_3", 1]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityFour0" to="." method="_start_assign_key" binds= ["use_ability_4", 0]]
-[connection signal="pressed" from="PanelContainer/MarginContainer/TabContainer/Controls/MarginContainer/GridContainer/AssignAbilityFour1" to="." method="_start_assign_key" binds= ["use_ability_4", 1]]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Graphics/GridContainer/AssignFullscreen" to="." method="_toggle_graphics_setting" binds= ["windowMode"]]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/TabContainer/Graphics/ApplyButton" to="." method="_apply_settings"]
