@@ -41,7 +41,7 @@ godot::MeshInstance3D* GraphicalUtility::get_path_mesh(const godot::PackedVector
     return meshInstance;
 }
 
-static bool GraphicalUtility::update_path_mesh(godot::MeshInstance3D* meshInstance, const godot::PackedVector3Array& path) {
+bool GraphicalUtility::update_path_mesh(godot::MeshInstance3D* meshInstance, const godot::PackedVector3Array& path) {
     if (!meshInstance || path.size() < 2) {
         return false;
     }
