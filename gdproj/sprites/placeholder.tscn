@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca0rrjda1hndv"]
+
+[ext_resource type="Texture2D" uid="uid://ddoclvo6hdy0r" path="res://sprites/temp_ability_icon.png" id="1_ynyio"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ynyio")

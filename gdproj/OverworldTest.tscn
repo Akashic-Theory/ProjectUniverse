@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://csy6te3w33vc6"]
+
+[ext_resource type="Script" path="res://overworld_generation.gd" id="1_bej44"]
+[ext_resource type="Script" path="res://poisson_disc.gd" id="2_bwo8r"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_bej44")
+
+[node name="PointGenerator" type="Node2D" parent="."]
+script = ExtResource("2_bwo8r")
+bounds_radius = 500
+r = 150.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 8.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
