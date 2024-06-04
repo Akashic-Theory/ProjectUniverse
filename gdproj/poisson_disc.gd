@@ -12,7 +12,9 @@ const K : int = 7
 
 @onready var all_points = PackedVector2Array()
 @onready var active_points = PackedVector2Array()
-#@onready var graph = {}
+## Stores every points' connections
+## {pointA: [pointB, pointC]}
+@onready var graph = {}
 
 var grid_bound_x
 var grid_bound_y
@@ -24,9 +26,33 @@ func _ready():
 	grid_bound_x = absi(ceili(grid_offset.x / side_length))
 	grid_bound_y = absi(ceili(grid_offset.y / side_length))
 
+
+func generate_proximity_graph(range: float) -> Dictionary:
+	graph.clear()
+	
+	for p in all_points:
+		graph[p] = []
+		var index = to_grid_index(p)
+		
+		# These bounds represent the 3x3 grid cell area around the point
+		var x0 = maxi(index.x - 2, 0)
+		var x1 = mini(index.x + 2, grid.size() - 1)
+		var y0 = maxi(index.y - 2, 0)
+		var y1 = mini(index.y + 2, grid[0].size() - 1)
+		
+		# Check for points that are within range
+		for i in range(x0, x1 + 1):
+			for j in range(y0, y1 + 1):
+				if grid[i][j] != null:
+					if p.distance_to(grid[i][j]) <= r * range:
+						graph[p].append(grid[i][j])
+	
+	return graph
+
+
 func generate_distribution() -> PackedVector2Array:
 	all_points.clear()
-	#graph.clear()
+	graph.clear()
 	
 	# Initialize grid
 	# All of its values are null
@@ -59,7 +85,7 @@ func generate_points(base_point : Vector2):
 	
 	for i in range(K):
 		# Random point in a donut
-		var radius = r * (sqrt(randf()) + 1)
+		var radius = r * (0.5 * sqrt(randf()) + 1)
 		var theta = randf() * TAU
 		# To cartesian...
 		var point = Vector2(base_point.x + (radius * cos(theta)), 
@@ -68,6 +94,8 @@ func generate_points(base_point : Vector2):
 		if check_valid_point(point):
 			new_points_count += 1
 			add_new_point(point)
+			graph[base_point].append(point)
+			graph[point].append(base_point)
 	
 	# If no new points were generated, de-activate the base point
 	if new_points_count == 0:
@@ -77,6 +105,7 @@ func generate_points(base_point : Vector2):
 func check_valid_point(point : Vector2):
 	var index = to_grid_index(point)
 	
+	# These bounds represent the 8 crid cells around the point
 	var x0 = maxi(index.x - 1, 0)
 	var x1 = mini(index.x + 1, grid.size() - 1)
 	var y0 = maxi(index.y - 1, 0)
@@ -98,6 +127,7 @@ func check_valid_point(point : Vector2):
 func add_new_point(point : Vector2):
 	all_points.append(point)
 	active_points.append(point)
+	graph[point] = []
 	
 	# Assign to the grid
 	var index = to_grid_index(point)

@@ -59,6 +59,7 @@ shape = SubResource("CapsuleShape3D_6q2ck")
 [node name="Abilities" type="Node" parent="Claire"]
 
 [node name="Ability" type="Ability" parent="Claire/Abilities"]
+"Targeting Mode" = 0
 
 [connection signal="input_event" from="Blaire/Mesh/Area3D" to="Blaire" method="_on_input_event"]
 [connection signal="input_event" from="Claire/Mesh/Area3D" to="Claire" method="_on_input_event"]
